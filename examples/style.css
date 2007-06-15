@@ -1,0 +1,36 @@
+html, body {
+    margin: 0;
+    padding: 0.5em 1em;
+    font: 0.9em Verdana, Arial, sans serif;
+}
+h3 {
+    text-align: center;
+}
+table {
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+}
+caption {
+    text-align: left;
+    padding: 0.5em;
+}
+table {
+    background-color: #eee;
+}
+table th {
+    font-weight: normal;
+}
+table td {
+    border: 1px solid #ddd;
+    padding: 0.25em;
+    background-color: #fff;
+    text-align: center;
+}
+ul {
+    list-style: circle;
+    padding: 0;
+    margin: 0.25em 0.25em 1em 0.5em;
+}
+ul li {
+    margin-left: 1em;
+}
