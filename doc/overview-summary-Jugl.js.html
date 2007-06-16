@@ -8,7 +8,7 @@ Jugl Overview
 <script>
 function asd() {
 	
-		parent.document.title="Util.js Overview";
+		parent.document.title="Jugl.js Overview";
 	
 }
 </script>
@@ -68,7 +68,7 @@ function asd() {
 <hr>
 <center>
 	
-	   <h2>Util.js</h2>
+	   <h2>Jugl.js</h2>
 	
 </center>
 
@@ -78,7 +78,7 @@ function asd() {
 <h4>Summary</h4>
 <p>
 	
-		No overview generated for 'Util.js'<BR/><BR/>
+		No overview generated for 'Jugl.js'<BR/><BR/>
 	
 </p>
 
@@ -91,30 +91,100 @@ function asd() {
 <!-- ========== END METHOD SUMMARY =========== -->
 
 
-        <pre class="sourceview">
-Jugl.Util = new Object();
-
-<span class="comment">/* from Prototype.js */</span>
-Jugl.Util.extend = <span class="reserved">function</span>(destination, source) {
-    <span class="reserved">for</span> (property in source) {
-      destination[property] = source[property];
-    }
-    <span class="reserved">return</span> destination;
-};
-
-
-<span class="comment">/** Seems to exist already in FF, but not in MOZ.
- * 
- * <span class="attrib">@param</span> {Array} array
- * <span class="attrib">@param</span> {Object} obj
+        <pre class="sourceview"><span class="comment">/**
+ * All classes and methods are contained in the Jugl namespace.
+ * <span class="attrib">@class</span>
+ * <span class="attrib">@type</span> Object
  */</span>
-Jugl.Util.indexOf = <span class="reserved">function</span>(array, obj) {
+Jugl = {
+    
+    <span class="comment">/**
+     * <span class="attrib">@type</span> String
+     * <span class="attrib">@member</span> Jugl
+     */</span>
+    prefix: <span class="literal">"jugl"</span>,
+    
+    <span class="comment">/**
+     * <span class="attrib">@type</span> String
+     */</span>
+    namespaceURI: <span class="literal">"http://jugl.org/ns#"</span>,
+    
+    <span class="comment">/** do this for real */</span>
+    xmlns: <span class="literal">"http://xmlsn.org"</span>,
 
-    <span class="reserved">for</span>(var i=0; i &lt; array.length; i++) {
-        <span class="reserved">if</span> (array[i] == obj) <span class="reserved">return</span> i;
+    <span class="comment">/**
+     * <span class="attrib">@type</span> String
+     * <span class="attrib">@private</span>
+     */</span>
+    scriptName: typeof(_JUGL_SFL_) == <span class="literal">"undefined"</span> ? <span class="literal">"lib/Jugl.js"</span> : <span class="literal">"Jugl.js"</span>,
+    
+    <span class="comment">/**
+     * <span class="attrib">@type</span> String
+     * <span class="attrib">@returns</span> The path to this script
+     * <span class="attrib">@private</span>
+     */</span>
+    getScriptLocation: <span class="reserved">function</span> () {
+        var scriptLocation = <span class="literal">""</span>;
+        var SCRIPT_NAME = Jugl.scriptName;
+ 
+        var scripts = document.getElementsByTagName(<span class="literal">'script'</span>);
+        <span class="reserved">for</span> (var i = 0; i &lt; scripts.length; i++) {
+            var src = scripts[i].getAttribute(<span class="literal">'src'</span>);
+            <span class="reserved">if</span> (src) {
+                var index = src.lastIndexOf(SCRIPT_NAME); 
+                <span class="comment">// is it found, at the end of the URL?</span>
+                <span class="reserved">if</span> ((index &gt; -1) &amp;&amp; (index + SCRIPT_NAME.length == src.length)) {  
+                    scriptLocation = src.slice(0, -SCRIPT_NAME.length);
+                    break;
+                }
+            }
+        }
+        <span class="reserved">return</span> scriptLocation;
     }
-    <span class="reserved">return</span> -1;   
 };
+
+<span class="comment">/**
+ *
+ * `_JUGL_SFL_` is a flag indicating this file is being included
+ * in a Single File Library build of the Jugl Library.
+ *
+ * When we are *not* part of a SFL build we dynamically include the
+ * Jugl library code.
+ *
+ * When we *are* part of a SFL build we do not dynamically include the 
+ * Jugl library code as it will be appended at the end of this file.
+ */</span>
+<span class="reserved">if</span> (typeof(_JUGL_SFL_) == <span class="literal">"undefined"</span>) {
+    (<span class="reserved">function</span>() {
+    var jsfiles=new Array(
+        <span class="literal">"Jugl/Util.js"</span>,
+        <span class="literal">"Jugl/Class.js"</span>,
+        <span class="literal">"Jugl/Node.js"</span>,
+        <span class="literal">"Jugl/Attribute.js"</span>,
+        <span class="literal">"Jugl/Console.js"</span>,
+        <span class="literal">"Jugl/Parser.js"</span>
+    ); <span class="comment">// etc.</span>
+
+    var allScriptTags = <span class="literal">""</span>;
+    var host = Jugl.getScriptLocation() + <span class="literal">"lib/"</span>;
+
+    <span class="reserved">for</span> (var i = 0; i &lt; jsfiles.length; i++) {
+        <span class="reserved">if</span> (/MSIE/.test(navigator.userAgent) ||
+            /Safari/.test(navigator.userAgent)) {
+            var currentScriptTag = <span class="literal">"&lt;script src='"</span> + host + jsfiles[i] + <span class="literal">"'&gt;&lt;/script&gt;"</span>; 
+            allScriptTags += currentScriptTag;
+        } <span class="reserved">else</span> {
+            var s = document.createElement(<span class="literal">"script"</span>);
+            s.src = host + jsfiles[i];
+            var h = document.getElementsByTagName(<span class="literal">"head"</span>).length ? 
+                       document.getElementsByTagName(<span class="literal">"head"</span>)[0] : 
+                       document.body;
+            h.appendChild(s);
+        }
+    }
+    <span class="reserved">if</span> (allScriptTags) document.write(allScriptTags);
+    })();
+}
 </pre>
 	<hr>
 
