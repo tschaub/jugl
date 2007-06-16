@@ -108,16 +108,8 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    
    <TR BGCOLOR="white" CLASS="TableRowColor">
    <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-   <CODE>&nbsp;Object</CODE></FONT></TD>
+   <CODE>&nbsp;&lt;final&gt;&nbsp;String</CODE></FONT></TD>
    <TD><CODE><B><A HREF="#CLASS_NAME">CLASS_NAME</A></B></CODE>
-   <BR>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-   </TR>
-   
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-   <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-   <CODE>&nbsp;Object</CODE></FONT></TD>
-   <TD><CODE><B><A HREF="#processAttribute">processAttribute</A></B></CODE>
    <BR>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
    </TR>
@@ -151,40 +143,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#evalInScope">evalInScope</A></B>(str)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
-      </TD>
-   </TR>
-
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#getAttributeValues">getAttributeValues</A></B>()
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
-      </TD>
-   </TR>
-
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
 	    <CODE>&nbsp;void</CODE>
 	 </FONT>
       </TD>
@@ -212,7 +170,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Process this attribute.
       </TD>
    </TR>
 
@@ -229,24 +187,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
-      </TD>
-   </TR>
-
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#splitAttributeValue">splitAttributeValue</A></B>(value)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Remove this attribute from its node.
       </TD>
    </TR>
 
@@ -271,18 +212,15 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    
    <A NAME="CLASS_NAME"><!-- --></A>
    <H3>CLASS_NAME</H3>
-   <PRE>Object&nbsp;<B>CLASS_NAME</B></PRE>
+   <PRE>&lt;final&gt;&nbsp;String&nbsp;<B>CLASS_NAME</B></PRE>
    <UL>
    
    
-   </UL>
-   <HR>
-   
-   <A NAME="processAttribute"><!-- --></A>
-   <H3>processAttribute</H3>
-   <PRE>Object&nbsp;<B>processAttribute</B></PRE>
-   <UL>
-   
+    <P>
+    <DL>
+    <DT><B>See Also:</B><DD><A HREF="constant-values.html#Jugl.Attribute.CLASS_NAME">Constant Field Values</A></DL>
+    </DL>
+
    
    </UL>
    <HR>
@@ -319,38 +257,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 <!-- One single method detail entry -->
 
-   <A NAME="evalInScope"><!-- --></A>
-   <H3>evalInScope</H3>
-   <PRE>Object <B>evalInScope</B>(str)</PRE>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="getAttributeValues"><!-- --></A>
-   <H3>getAttributeValues</H3>
-   <PRE>Object <B>getAttributeValues</B>()</PRE>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
    <A NAME="initialize"><!-- --></A>
    <H3>initialize</H3>
    <PRE>void <B>initialize</B>(&lt;<a href="../Jugl/Node.html">Jugl.Node</a>&gt; node, &lt;AttributeNode&gt; element, &lt;String&gt; type)</PRE>
@@ -385,6 +291,8 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <H3>process</H3>
    <PRE>Object <B>process</B>()</PRE>
    
+      <UL>Process this attribute.</UL>
+   
 
    <!-- METHOD PARAMETERS START -->
    
@@ -401,21 +309,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <H3>removeSelf</H3>
    <PRE>void <B>removeSelf</B>()</PRE>
    
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="splitAttributeValue"><!-- --></A>
-   <H3>splitAttributeValue</H3>
-   <PRE>Object <B>splitAttributeValue</B>(value)</PRE>
+      <UL>Remove this attribute from its node.</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -495,6 +389,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <FONT SIZE="-1">
 
 </FONT>
-<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Fri Jun 15 18:29:08 2007</div>
+<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Fri Jun 15 19:24:51 2007</div>
 </BODY>
 </HTML>
