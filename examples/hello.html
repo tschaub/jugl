@@ -7,8 +7,10 @@
         <script type="text/javascript">
         
             // define variables to be used in the template
-            var greeting = "Hello World, from Jugl";
+            var name = "Jugl";
+            var greeting = "Hello World";
             var todo = ["eat", "drink", "be merry"];
+            var clutter = true;
             var weather = {
                 temp: "warm",
                 skies: "blue"
@@ -37,7 +39,7 @@
                 }
                 return bool;
             }
-            
+
             // this part does the actual template processing
             window.onload = function() {
                 var parser = new Jugl.Parser();
@@ -48,7 +50,7 @@
     </head>
     <body>
         <div id="basic" style="margin: 0 auto; width: 50%">
-            <h3 jugl:content="greeting">
+            <h3 jugl:content="greeting + ', from ' + name">
                 Insert a nice greeting here
             </h3>
 
@@ -115,6 +117,10 @@
                 </tbody>
             </table>
             <p>
+                <i jugl:omit-tag="clutter">
+                    Thanks for trying
+                    <b jugl:content="name">Project Name</b>.
+                </i>
                 <blink jugl:replace="'That\'s all!'">Replace this tag</blink>
             </p>
         </div>
