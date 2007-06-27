@@ -46,7 +46,8 @@ this.removeSelf();var replacement=new Jugl.Node(this.parser,document.createTextN
 this.removeSelf();return false;},"omit-tag":function(){var omit;try{omit=((this.nodeValue=="")||!!(this.evalInScope(this.nodeValue)));}catch(err){Jugl.Console.error("Failed to eval in node scope: "+
 this.nodeValue);throw err;}
 this.removeSelf();if(omit){var children=this.node.getChildNodes();var child;for(var i=0;i<children.length;++i){this.node.insertBefore(children[i]);}
-this.node.removeSelf();}}},CLASS_NAME:"Jugl.Attribute"});Jugl.Parser=new Jugl.Class({usingNS:false,regExes:null,initialize:function(options){this.regExes={trimSpace:(/^\s*(\w+)\s+(.*?)\s*$/)};},process:function(id,clone){var element=document.getElementById(id);if(element.getAttributeNodeNS){if(element.getAttributeNodeNS(Jugl.xmlns,Jugl.prefix)){this.usingNS=true;}}
+this.node.removeSelf();}}},CLASS_NAME:"Jugl.Attribute"});Jugl.Parser=new Jugl.Class({usingNS:false,regExes:null,initialize:function(options){this.regExes={trimSpace:(/^\s*(\w+)\s+(.*?)\s*$/)};},process:function(element,clone){if(typeof(element)=="string"){element=document.getElementById(id);}
+if(element.getAttributeNodeNS){if(element.getAttributeNodeNS(Jugl.xmlns,Jugl.prefix)){this.usingNS=true;}}
 var node=new Jugl.Node(this,element);if(clone){node=node.clone();}
 try{node.process();}catch(err){Jugl.Console.error("Failed to process "+
 element+" node");}
