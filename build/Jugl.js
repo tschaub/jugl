@@ -46,12 +46,13 @@ this.removeSelf();var replacement=new Jugl.Node(this.parser,document.createTextN
 this.removeSelf();return false;},"omit-tag":function(){var omit;try{omit=((this.nodeValue=="")||!!(this.evalInScope(this.nodeValue)));}catch(err){Jugl.Console.error("Failed to eval in node scope: "+
 this.nodeValue);throw err;}
 this.removeSelf();if(omit){var children=this.node.getChildNodes();var child;for(var i=0;i<children.length;++i){this.node.insertBefore(children[i]);}
-this.node.removeSelf();}}},CLASS_NAME:"Jugl.Attribute"});Jugl.Parser=new Jugl.Class({usingNS:false,regExes:null,initialize:function(options){this.regExes={trimSpace:(/^\s*(\w+)\s+(.*?)\s*$/)};},process:function(element,clone){if(typeof(element)=="string"){element=document.getElementById(id);}
+this.node.removeSelf();}}},CLASS_NAME:"Jugl.Attribute"});Jugl.Parser=new Jugl.Class({usingNS:false,xmldom:null,regExes:null,initialize:function(options){this.regExes={trimSpace:(/^\s*(\w+)\s+(.*?)\s*$/)};if(window.ActiveXObject){this.xmldom=new ActiveXObject("Microsoft.XMLDOM");}},process:function(element,clone,toString){if(typeof(element)=="string"){element=document.getElementById(element);}
 if(element.getAttributeNodeNS){if(element.getAttributeNodeNS(Jugl.xmlns,Jugl.prefix)){this.usingNS=true;}}
 var node=new Jugl.Node(this,element);if(clone){node=node.clone();}
 try{node.process();}catch(err){Jugl.Console.error("Failed to process "+
 element+" node");}
-return node.element;},CLASS_NAME:"Jugl.Parser"});Jugl.Node=new Jugl.Class({parser:null,element:null,scope:null,initialize:function(parser,element){this.parser=parser;this.element=element;this.scope=new Object();this.scope.repeat=new Object();},clone:function(){var element=this.element.cloneNode(true);var node=new Jugl.Node(this.parser,element);Jugl.Util.extend(node.scope,this.scope);return node;},getAttribute:function(localName){var element;if(this.element.nodeType==1){if(this.parser.usingNS){element=this.element.getAttributeNodeNS(Jugl.namespaceURI,localName);}else{element=this.element.getAttributeNode(Jugl.prefix+":"+
+var data;if(toString){if(node.element.innerHTML){data=node.element.innerHTML;}else{if(this.xmldom){data=node.element.xml;}else{var serializer=new XMLSerializer();data=serializer.serializeToString(node.element);}}}else{data=node.element;}
+return data;},CLASS_NAME:"Jugl.Parser"});Jugl.Node=new Jugl.Class({parser:null,element:null,scope:null,initialize:function(parser,element){this.parser=parser;this.element=element;this.scope=new Object();this.scope.repeat=new Object();},clone:function(){var element=this.element.cloneNode(true);var node=new Jugl.Node(this.parser,element);Jugl.Util.extend(node.scope,this.scope);return node;},getAttribute:function(localName){var element;if(this.element.nodeType==1){if(this.parser.usingNS){element=this.element.getAttributeNodeNS(Jugl.namespaceURI,localName);}else{element=this.element.getAttributeNode(Jugl.prefix+":"+
 localName);}
 if(element&&!element.specified){element=false;}}
 var attribute;if(element){attribute=new Jugl.Attribute(this,element,localName);}else{attribute=element;}

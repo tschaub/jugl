@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN">
+<html>
+    <head>
+        <title>Jugl Hello String Example</title>
+        <link rel="stylesheet" href="style.css" type="text/css" />
+        <style type="text/css">
+            html, body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+            }
+            #input {
+                padding: 2em;
+                margin-right: 2em;
+            }
+            #wrap {
+                float: right;
+                width: 50%;
+                height: 100%;
+                padding: 2em 0 0 5em;
+            }
+        </style>
+        <script type="text/javascript" src="../build/Jugl.js"></script>
+        <!-- For an uncompressed version of the code, see
+             http://trac.geocartic.com/projects/jugl -->
+        <script type="text/javascript">
+        
+            // define variables to be used in the template
+            var name = "Jugl";
+            var greeting = "Hello World";
+            var todo = ["eat", "drink", "be merry"];
+            var clutter = true;
+            var weather = {
+                temp: "warm",
+                skies: "blue"
+            };
+            var products = [
+                {
+                    name: "kumquats",
+                    price: 2.50,
+                    stores: ["downtown", "mall"]
+                },
+                {
+                    name: "pencils",
+                    price: 1.25,
+                    stores: ["uptown", "mall"]
+                }
+            ];
+
+            // any globally accessible functions can be used as well
+            function itemInArray(item, array) {
+                var bool = false;
+                for(var i=0; i<array.length; ++i) {
+                    if(array[i] == item) {
+                        bool = true;
+                        break;
+                    }
+                }
+                return bool;
+            }
+
+            // this part does the actual template processing
+            window.onload = function() {
+                var parser = new Jugl.Parser();
+                var data = parser.process('basic', true, true);
+                var output = document.getElementById('output');
+                output.appendChild(document.createTextNode(data));
+            }
+
+        </script>
+    </head>
+    <body>
+        <div id="wrap">
+            Output:
+            <pre id="output"></pre>
+        </div>
+        <div id="input">
+            Input:
+            <div id="basic">
+                
+                <h3 jugl:content="greeting + ', from ' + name">
+                    Insert a nice greeting here
+                </h3>
+    
+                <p jugl:content="new Date().toLocaleString()">
+                    today's date goes here
+                </p>
+    
+                Things to do
+                <ul>
+                    <li jugl:repeat="things todo" jugl:content="things">
+                        list of stuff to do here
+                    </li>
+                    <li>sleep</li>
+                </ul>
+    
+                Tomorrow's forecast
+                <ul>
+                    <li jugl:repeat="prop weather"
+                        jugl:content="prop + ' will be ' + weather[prop]">
+                        a list of weather conditions here
+                    </li>
+                </ul>
+    
+                <table>
+                    <caption jugl:content="products.length + ' things to buy'">
+                        number of products to buy
+                    </caption>
+                    <tbody>
+                        <tr>
+                            <th>item</th>
+                            <th>product</th>
+                            <th>price</th>
+                            <th>downtown</th>
+                            <th>mall</th>
+                            <th>uptown</th>
+                        </tr>
+                        <tr jugl:repeat="item products">
+                            <td jugl:content="repeat.item.number">
+                                product number goes here
+                            </td>
+                            <td jugl:content="item.name">
+                                product name goes here
+                            </td>
+                            <td>
+                                $<span jugl:content="item.price">price goes here</span>
+                                <i jugl:condition="item.price &gt; 1.5">(overpriced)</i>
+                            </td>
+                            <td>
+                                <span jugl:condition="itemInArray('downtown', item.stores)">
+                                    X
+                                </span>
+                            </td>
+                            <td>
+                                <span jugl:condition="itemInArray('mall', item.stores)">
+                                    X
+                                </span>
+                            </td>
+                            <td>
+                                <span jugl:condition="itemInArray('uptown', item.stores)">
+                                    X
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    <i jugl:omit-tag="clutter">
+                        Thanks for trying
+                        <b jugl:content="name">Project Name</b>.
+                    </i>
+                    <blink jugl:replace="'That\'s all!'">Replace this tag</blink>
+                </p>
+            </div>
+        </div>
+    </body>
+</html>
