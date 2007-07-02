@@ -61,8 +61,8 @@
 
             // this part does the actual template processing
             window.onload = function() {
-                var parser = new Jugl.Parser();
-                var data = parser.process('basic', true, true);
+                var template = new Jugl.Template("basic");
+                var data = template.process(null, true, true);
                 var output = document.getElementById('output');
                 output.appendChild(document.createTextNode(data));
             }

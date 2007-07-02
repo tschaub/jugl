@@ -1,15 +1,14 @@
 1.35
 JavaScript
-\web\assets\jugl\svn\trunk\lib\Firebug\license.txt	1181949644	0	\web\assets\jugl\svn\trunk\lib\Firebug\license.txt
-\web\assets\jugl\svn\trunk\lib\Jugl\Parser.js	1182936148	1	Jugl.Parser
-\web\assets\jugl\svn\trunk\lib\Jugl.js	1182932539	1	Jugl
-\web\assets\jugl\svn\trunk\lib\Jugl\Console.js	1182805965	1	Jugl.Console
-\web\assets\jugl\svn\trunk\lib\Jugl\Class.js	1182811939	1	Jugl.Cass
-\web\assets\jugl\svn\trunk\lib\Firebug\firebugx.js	1181949644	0	\web\assets\jugl\svn\trunk\lib\Firebug\firebugx.js
-\web\assets\jugl\svn\trunk\lib\Jugl\Util.js	1182805965	1	Jugl.Util
-\web\assets\jugl\svn\trunk\lib\Firebug\readme.txt	1181949644	0	\web\assets\jugl\svn\trunk\lib\Firebug\readme.txt
-\web\assets\jugl\svn\trunk\lib\Firebug\firebug.js	1181949644	0	\web\assets\jugl\svn\trunk\lib\Firebug\firebug.js
-\web\assets\jugl\svn\trunk\lib\Jugl\Node.js	1182811008	1	Jugl.Node
-\web\assets\jugl\svn\trunk\lib\Jugl\SingleFile.js	1182805965	1	Jugl.SingleFile
-\web\assets\jugl\svn\trunk\lib\Jugl\Attribute.js	1182935369	1	Jugl.Attribute
-\web\assets\jugl\svn\trunk\lib\OpenLayers.js	1182899838	0	\web\assets\jugl\svn\trunk\lib\OpenLayers.js
+/home/tschaub/code/jugl/svn/trunk/lib/Jugl/Console.js	1183389606	1	Jugl.Console
+/home/tschaub/code/jugl/svn/trunk/lib/Jugl/SingleFile.js	1183389606	1	Jugl.SingleFile
+/home/tschaub/code/jugl/svn/trunk/lib/Jugl/Template.js	1183390254	1	Jugl.Template
+/home/tschaub/code/jugl/svn/trunk/lib/Jugl/Attribute.js	1183389606	1	Jugl.Attribute
+/home/tschaub/code/jugl/svn/trunk/lib/Firebug/license.txt	1183389606	0	/home/tschaub/code/jugl/svn/trunk/lib/Firebug/license.txt
+/home/tschaub/code/jugl/svn/trunk/lib/Jugl/Node.js	1183389606	1	Jugl.Node
+/home/tschaub/code/jugl/svn/trunk/lib/Firebug/readme.txt	1183389606	0	/home/tschaub/code/jugl/svn/trunk/lib/Firebug/readme.txt
+/home/tschaub/code/jugl/svn/trunk/lib/Firebug/firebug.js	1183389606	0	/home/tschaub/code/jugl/svn/trunk/lib/Firebug/firebug.js
+/home/tschaub/code/jugl/svn/trunk/lib/Jugl.js	1183390596	1	Jugl
+/home/tschaub/code/jugl/svn/trunk/lib/Jugl/Util.js	1183389606	1	Jugl.Util
+/home/tschaub/code/jugl/svn/trunk/lib/Firebug/firebugx.js	1183389606	0	/home/tschaub/code/jugl/svn/trunk/lib/Firebug/firebugx.js
+/home/tschaub/code/jugl/svn/trunk/lib/Jugl/Class.js	1183389605	1	Jugl.Cass

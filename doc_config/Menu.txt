@@ -37,8 +37,8 @@ Group: Jugl  {
    File: Cass  (Jugl/Class.js)
    File: Console  (Jugl/Console.js)
    File: Node  (Jugl/Node.js)
-   File: Parser  (Jugl/Parser.js)
    File: SingleFile  (Jugl/SingleFile.js)
+   File: Template  (Jugl/Template.js)
    File: Util  (Jugl/Util.js)
    }  # Group: Jugl
 

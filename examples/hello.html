@@ -44,8 +44,8 @@
 
             // this part does the actual template processing
             window.onload = function() {
-                var parser = new Jugl.Parser();
-                parser.process("basic");
+                var template = new Jugl.Template("basic");
+                template.process();
             }
 
         </script>
