@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN">
+<html>
+    <head>
+        <title>Jugl Asynchronous Example</title>
+        <link rel="stylesheet" href="style.css" type="text/css" />
+        <script type="text/javascript" src="../lib/Jugl.js"></script>
+        <!-- For an uncompressed version of the code, see
+             http://trac.geocartic.com/projects/jugl -->
+        <script type="text/javascript">
+        
+            // define variables to be used in the template
+            var name = "Jugl";
+            var greeting = "Hello World";
+            var todo = ["eat", "drink", "be merry"];
+            var clutter = true;
+            var weather = {
+                temp: "warm",
+                skies: "blue"
+            };
+            var products = [
+                {
+                    name: "kumquats",
+                    price: 2.50,
+                    stores: ["downtown", "mall"]
+                },
+                {
+                    name: "pencils",
+                    price: 1.25,
+                    stores: ["uptown", "mall"]
+                }
+            ];
+
+            // any globally accessible functions can be used as well
+            function itemInArray(item, array) {
+                var bool = false;
+                for(var i=0; i<array.length; ++i) {
+                    if(array[i] == item) {
+                        bool = true;
+                        break;
+                    }
+                }
+                return bool;
+            }
+
+            // this part does the actual template processing
+            window.onload = function() {
+                var template = Jugl.Async.loadTemplate("template.xml",
+                                                       onComplete);
+            }
+            
+            function onComplete(template) {
+                template.process();
+                var body = document.getElementsByTagName('body')[0];
+                body.appendChild(template.element);
+            }
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
