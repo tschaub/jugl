@@ -121,7 +121,10 @@
             <p>
                 <i jugl:omit-tag="clutter">
                     Thanks for trying
-                    <b jugl:content="name">Project Name</b>.
+                    <a jugl:content="name"
+                       jugl:attributes="href 'http://www.google.com/search?q=' + name + '+template+attribute+language'">
+                        Project Name
+                    </a>.
                 </i>
                 <blink jugl:replace="'That\'s all!'">Replace this tag</blink>
             </p>
