@@ -33,7 +33,7 @@ File: Jugl  (Jugl.js)
 
 Group: Jugl  {
 
-   File: Async  (no auto-title, Jugl/Async.js)
+   File: Async  (Jugl/Async.js)
    File: Attribute  (Jugl/Attribute.js)
    File: Cass  (Jugl/Class.js)
    File: Console  (Jugl/Console.js)
