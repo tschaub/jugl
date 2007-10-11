@@ -1,26 +1,8 @@
 /**
- * Jugl.js -- JavaScript Template Attribute Language
+ * Jugl.js -- JavaScript Template Library
  * This code is not yet licensed for release or distribution.
  *
  * Copyright 2007 Tim Schaub
- */
-
-/**
- * Contains portions of OpenLayers.js -- OpenLayers Map Viewer Library
- *
- * Copyright 2005-2006 MetaCarta, Inc., released under a modified BSD license.
- * Please see http://svn.openlayers.org/trunk/openlayers/repository-license.txt
- * for the full text of the license.
- */
-
-/**
- * Contains portions of Prototype.js:
- *
- * Prototype JavaScript framework, version 1.4.0
- *  (c) 2005 Sam Stephenson <sam@conio.net>
- *
- *  Prototype is freely distributable under the terms of an MIT-style license.
- *  For details, see the Prototype web site: http://prototype.conio.net/
  */
 
 (function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var Jugl={singleFile:true};window[uri]=Jugl;})();(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var singleFile=(typeof window[uri]=="object"&&window[uri].singleFile);var Jugl={prefix:"jugl",namespaceURI:"http://namespace.jugl.org/",scriptName:(!singleFile)?"lib/Jugl.js":"Jugl.js",getScriptLocation:function(){var scriptLocation="";var scriptName=Jugl.scriptName;var scripts=document.getElementsByTagName('script');for(var i=0;i<scripts.length;i++){var src=scripts[i].getAttribute('src');if(src){var index=src.lastIndexOf(scriptName);if((index>-1)&&(index+scriptName.length==src.length)){scriptLocation=src.slice(0,-scriptName.length);break;}}}
