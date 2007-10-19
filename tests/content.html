@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>jugl:content tests</title>
+<script type="text/javascript" src="doctest/doctest.js"></script>
+<script type="text/javascript" src="../lib/Jugl.js"></script>
+<link rel="stylesheet" type="text/css" href="doctest/doctest.css">
+</head>
+
+<body>
+<h2>jugl:content tests</h2>
+
+<div>
+<button onclick="doctest()">test all</button>
+<button onclick="doctest.reload(this)">reload</button>
+<br>
+<pre id="doctestOutput" class="output"></pre>
+</div>
+
+<hr>
+
+<div>
+Testing a simple template
+<div id="template1" style="display: none;">
+    <span id="target" jugl:content="greeting">greeting here</span>
+</div>
+<pre>
+&lt;div id="template1"&gt;
+    &lt;span id="target" jugl:content="greeting"&gt;greeting here&lt;/span&gt;
+&lt;/div&gt;
+</pre>
+<pre id="output1" class="output"></pre>
+<pre id="test1" class="doctest">
+$ var uri = "http://jugl.tschaub.net/trunk/lib/Jugl.js";
+> var Jugl = window[uri];
+> var template = new Jugl.Template("template1");
+> template;
+[Jugl.Template]
+
+$ var greeting = "hello world";
+> template.process();
+> var element = document.getElementById("target");
+> element.firstChild.nodeValue;
+"hello world"
+
+$ // processing removes the jugl attribute
+> element.attributes.length;
+1
+
+$ element.attributes[0].nodeName
+"id"
+</pre>
+
+</div>
+
+<hr>
+
+
+</body>
+</html>
