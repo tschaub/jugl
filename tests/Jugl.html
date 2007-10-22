@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>Jugl Tests</title>
+<script type="text/javascript" src="doctest/doctest.js"></script>
+<script type="text/javascript" src="../lib/Jugl.js"></script>
+<link rel="stylesheet" type="text/css" href="doctest/doctest.css">
+</head>
+
+<body>
+<h3>Jugl Tests</h3>
+
+<div>
+<button onclick="doctest()">test all</button>
+<button onclick="doctest.reload(this)">reload</button>
+<br>
+<pre id="doctestOutput" class="output"></pre>
+</div>
+
+<hr>
+
+<div>
+Basic library tests.
+<div id="template1" style="display: none;">
+    <span id="target" jugl:content="greeting">greeting here</span>
+</div>
+<pre id="output1" class="output"></pre>
+<pre id="test1" class="doctest">
+$ // import from the Jugl namespace
+> var uri = "http://jugl.tschaub.net/trunk/lib/Jugl.js";
+> var Jugl = window[uri];
+> Jugl;
+[object Object]
+
+$ Jugl.prefix;
+"jugl"
+
+$ Jugl.namespaceURI
+"http://namespace.jugl.org/"
+
+$ // import from the Jugl namespace to some custom place
+> var uri = "http://jugl.tschaub.net/trunk/lib/Jugl.js";
+> var MyNS = {};
+> MyNS.TAL = window[uri];
+> MyNS.TAL.prefix;
+"jugl"
+
+$ // set prefix and namespace uri to something custom
+> MyNS.TAL.prefix = "tal";
+"tal"
+
+$ MyNS.TAL.namespaceURI = "http://xml.zope.org/namespaces/tal";
+"http://xml.zope.org/namespaces/tal"
+
+</pre>
+
+</div>
+
+<hr>
+
+
+</body>
+</html>
