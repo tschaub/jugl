@@ -36,7 +36,44 @@
         t.eq(template.loaded, true, "element template sets loaded");
         t.ok(template.element == element, "element template sets element");
         
-    }    
+    }
+
+    function test_Template_process(t) {
+        
+        t.plan(2);
+        
+        // import
+        var uri = "http://jugl.tschaub.net/trunk/lib/Jugl.js";
+        var Jugl = window[uri];
+        
+        var realProcess = Jugl.Node.prototype.process;
+        var realClone = Jugl.Node.prototype.clone;
+        Jugl.Node.prototype.process = function() {
+            if(this.element != "cloned") {
+                this.element = "processed";
+            }
+        };
+        
+        Jugl.Node.prototype.clone = function() {
+            this.element = "cloned";
+            return this;
+        };
+        
+        // test template.process
+        var template = new Jugl.Template('template1');
+        var data = template.process();
+        
+        t.eq(data, "processed", "template.process returns template.element");
+
+        // test template.process with clone
+        template = new Jugl.Template('template1');
+        data = template.process(null, true);
+        t.eq(data, "cloned", "clone true calls node clone");
+        
+        Jugl.Node.prototype.process = realProcess;
+        Jugl.Node.prototype.clone = realClone;
+
+    }
 
   </script>
 </head>
