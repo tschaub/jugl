@@ -1,0 +1,48 @@
+<html>
+<head>
+  <script src="../../lib/Jugl.js"></script>
+  <script type="text/javascript">
+
+    function test_Template_constructor(t) {
+        t.plan(6);
+        
+        // import
+        var uri = "http://jugl.tschaub.net/trunk/lib/Jugl.js";
+        var Jugl = window[uri];
+
+        // create a new template
+        var template = new Jugl.Template();
+        
+        // no template id provided, template should not be loaded
+        t.ok(!template.loaded, "template not loaded if no id given");
+        
+        // create template with bad id
+        var error;
+        try {
+            template = new Jugl.Template("bogus");
+        } catch(err) {
+            error = err;
+        }
+        t.ok(error instanceof Error, "error thrown for bogus template id");
+        
+        // create valid template
+        template = new Jugl.Template("template1");
+        t.eq(template.loaded, true, "valid id template sets loaded");
+        t.eq(template.element.nodeType, 1, "valid id template sets element");
+        
+        // alternatively, create a template with a dom element
+        var element = document.getElementById("template1");
+        template = new Jugl.Template(element);
+        t.eq(template.loaded, true, "element template sets loaded");
+        t.ok(template.element == element, "element template sets element");
+        
+    }    
+
+  </script>
+</head>
+<body>
+    <div id="template1">
+        <p jugl:content="testContent">replace this content</p>
+    </div>
+</body>
+</html>
