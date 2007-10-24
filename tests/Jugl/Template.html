@@ -34,45 +34,58 @@
         var element = document.getElementById("template1");
         template = new Jugl.Template(element);
         t.eq(template.loaded, true, "element template sets loaded");
-        t.ok(template.element == element, "element template sets element");
-        
+        t.ok(template.element == element, "element template sets element"); 
     }
 
     function test_Template_process(t) {
-        
-        t.plan(2);
+        t.plan(4);
         
         // import
         var uri = "http://jugl.tschaub.net/trunk/lib/Jugl.js";
         var Jugl = window[uri];
         
-        var realProcess = Jugl.Node.prototype.process;
-        var realClone = Jugl.Node.prototype.clone;
-        Jugl.Node.prototype.process = function() {
-            if(this.element != "cloned") {
-                this.element = "processed";
-            }
-        };
-        
-        Jugl.Node.prototype.clone = function() {
-            this.element = "cloned";
-            return this;
-        };
-        
         // test template.process
+        var realProcess = Jugl.Node.prototype.process;
+        Jugl.Node.prototype.process = function() {
+            this.element = "processed";
+        };
         var template = new Jugl.Template('template1');
         var data = template.process();
-        
         t.eq(data, "processed", "template.process returns template.element");
 
+        // test template.process with context
+        Jugl.Node.prototype.process = function() {
+            this.element = this.scope;
+        };
+        var scope = {
+            foo: "bar"
+        };
+        data = template.process(scope);
+        t.eq(data, scope, "template process with scope sets node.scope");
+
+        Jugl.Node.prototype.process = realProcess;
+        
         // test template.process with clone
+        var realClone = Jugl.Node.prototype.clone;
+        Jugl.Node.prototype.clone = function() {
+            return {
+                element: "cloned",
+                process: function() {}
+            };
+        };
         template = new Jugl.Template('template1');
         data = template.process(null, true);
-        t.eq(data, "cloned", "clone true calls node clone");
-        
-        Jugl.Node.prototype.process = realProcess;
+        t.eq(data, "cloned", "clone true calls node.clone");
         Jugl.Node.prototype.clone = realClone;
-
+        
+        // test template.process with toString
+        var template = new Jugl.Template('template1');
+        window.testContent = "foo";
+        var data = template.process(null, false, true);
+        t.eq(
+            data.replace(/^\s+|\s+$/g, ''), "<p>foo<"+"/p>",
+            "node processed to string"
+        );
     }
 
   </script>
