@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:jugl="http://namespace.jugl.org/"
+     style="margin: 0 auto; width: 50%">
+    <h3 jugl:content="structure paragraph">replace this</h3>
+    <ul>
+        <li jugl:content="structure bold">replace this</li>
+        <li jugl:content="bold">replace this</li>
+        <li jugl:content="structure invalidXHTML">replace this</li>
+    </ul>        
+</div>

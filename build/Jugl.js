@@ -8,9 +8,9 @@
 (function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var Jugl={singleFile:true};window[uri]=Jugl;})();(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var singleFile=(typeof window[uri]=="object"&&window[uri].singleFile);var Jugl={prefix:"jugl",namespaceURI:"http://namespace.jugl.org/",scriptName:(!singleFile)?"lib/Jugl.js":"Jugl.js",getScriptLocation:function(){var scriptLocation="";var scriptName=Jugl.scriptName;var scripts=document.getElementsByTagName('script');for(var i=0;i<scripts.length;i++){var src=scripts[i].getAttribute('src');if(src){var index=src.lastIndexOf(scriptName);if((index>-1)&&(index+scriptName.length==src.length)){scriptLocation=src.slice(0,-scriptName.length);break;}}}
 return scriptLocation;}};if(!singleFile){var jsfiles=new Array("Jugl/Util.js","Jugl/Class.js","Jugl/Async.js","Jugl/Node.js","Jugl/Attribute.js","Jugl/Console.js","Jugl/Template.js");var allScriptTags="";var host=Jugl.getScriptLocation()+"lib/";for(var i=0;i<jsfiles.length;i++){if(/MSIE/.test(navigator.userAgent)||/Safari/.test(navigator.userAgent)){var currentScriptTag="<script src='"+host+jsfiles[i]+"'></script>";allScriptTags+=currentScriptTag;}else{var s=document.createElement("script");s.src=host+jsfiles[i];var h=document.getElementsByTagName("head").length?document.getElementsByTagName("head")[0]:document.body;h.appendChild(s);}}
 if(allScriptTags){document.write(allScriptTags);}}
-window[uri]=Jugl;})();(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var Jugl=window[uri];Jugl.Class=function(){var Class=function(){if(this===Jugl){throw"Create an instance of a Jugl class with the new keyword";}
+window[uri]=Jugl;})();(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var Jugl=window[uri];Jugl.Class=function(){var Class=function(){if(this===Jugl){var msg="Create an instance of a Jugl "+"class with the new keyword";throw Error(msg);}
 this.initialize.apply(this,arguments);}
-var extended={};var parent;for(var i=0;i<arguments.length;++i){if(typeof arguments[i]=="function"){parent=arguments[i].prototype;}else{parent=arguments[i];}
+var extended={toString:function(){return"["+this.CLASS_NAME+"]";}};var parent;for(var i=0;i<arguments.length;++i){if(typeof arguments[i]=="function"){parent=arguments[i].prototype;}else{parent=arguments[i];}
 Jugl.Util.extend(extended,parent);}
 Class.prototype=extended;return Class;};})();(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var Jugl=window[uri];Jugl.Util=new Object();Jugl.Util.extend=function(destination,source){for(property in source){destination[property]=source[property];}
 return destination;};Jugl.Util.indexOf=function(array,obj){for(var i=0;i<array.length;i++){if(array[i]==obj)return i;}
@@ -26,21 +26,27 @@ list=items;}
 var node;var previousSibling=this.node;var length=list.length;for(var i=0;i<length;++i){node=this.node.clone();node.scope[key]=list[i];node.scope.repeat[key]={index:i,number:i+1,even:!(i%2),odd:!!(i%2),start:(i==0),end:(i==length-1),length:length};previousSibling.insertAfter(node);node.process();previousSibling=node;}
 this.node.removeSelf();return false;},"content":function(){var pair=this.splitExpressionPrefix();var str;try{str=this.evalInScope(pair[1]);}catch(err){Jugl.Console.error("Failed to eval in node scope: "+
 pair[1]);throw err;}
-this.removeSelf();if(pair[0]=='structure'){this.node.element.innerHTML=str;}else{var child=new Jugl.Node(this.template,document.createTextNode(str));this.node.removeChildNodes();this.node.appendChild(child);}
+this.removeSelf();if(pair[0]=='structure'){try{this.node.element.innerHTML=str;}catch(err){var wrapper=document.createElement('div');var msg;try{wrapper.innerHTML=str;}catch(invalidHTML){msg="Can't transform string into valid HTML : "+
+str;OpenLayers.Console.error(msg);throw invalidHTML;}
+try{this.node.element.innerHTML=wrapper.innerHTML;}catch(invalidXML){msg="Can't transform string into valid XHTML : "+
+str;OpenLayers.Console.error(msg);throw invalidXML;}}}else{var child=new Jugl.Node(this.template,document.createTextNode(str));this.node.removeChildNodes();this.node.appendChild(child);}
 return true;},"replace":function(){var pair=this.splitExpressionPrefix();var str;try{str=this.evalInScope(pair[1]);}catch(err){Jugl.Console.error("Failed to eval in node scope: "+
 pair[1]);throw err;}
-this.removeSelf();if(pair[0]=='structure'){var wrapper=document.createElement('div');wrapper.innerHTML=str;var children=wrapper.childNodes;var child;for(var i=0;i<children.length;++i){this.node.element.parentNode.insertBefore(children[i],this.node.element);}}else{var replacement=new Jugl.Node(this.template,document.createTextNode(str));this.node.insertBefore(replacement);}
+this.removeSelf();if(pair[0]=='structure'){var wrapper=document.createElement('div');try{wrapper.innerHTML=str;}catch(err){msg="Can't transform string into valid HTML : "+
+str;OpenLayers.Console.error(msg);throw err;}
+var children=wrapper.childNodes;var child;for(var i=0;i<children.length;++i){this.node.element.parentNode.insertBefore(children[i],this.node.element);}}else{var replacement=new Jugl.Node(this.template,document.createTextNode(str));this.node.insertBefore(replacement);}
 this.node.removeSelf();return true;},"attributes":function(){var values=this.getAttributeValues();var pair,name,value;for(var i=0;i<values.length;++i){pair=this.splitAttributeValue(values[i]);name=pair[0];value=this.evalInScope(pair[1]);if(value!==false){this.node.setAttribute(name,value);}}
 this.removeSelf();return true;},"omit-tag":function(){var omit;try{omit=((this.nodeValue=="")||!!(this.evalInScope(this.nodeValue)));}catch(err){Jugl.Console.error("Failed to eval in node scope: "+
 this.nodeValue);throw err;}
 this.removeSelf();if(omit){var children=this.node.getChildNodes();var child;for(var i=0;i<children.length;++i){this.node.insertBefore(children[i]);}
-this.node.removeSelf();}}},CLASS_NAME:"Jugl.Attribute"});})();(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var Jugl=window[uri];Jugl.Template=Jugl.Class({element:null,usingNS:false,xhtmlns:"http://www.w3.org/1999/xhtml",xmldom:null,regExes:null,loaded:false,loading:false,initialize:function(element,options){if(typeof(element)=="string"){element=document.getElementById(element);}
+this.node.removeSelf();}}},CLASS_NAME:"Jugl.Attribute"});})();(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var Jugl=window[uri];Jugl.Template=Jugl.Class({element:null,usingNS:false,xhtmlns:"http://www.w3.org/1999/xhtml",xmldom:null,regExes:null,loaded:false,loading:false,initialize:function(element,options){if(typeof(element)=="string"){var obj=document.getElementById(element);if(!obj){throw Error("Element id not found: "+element);}
+element=obj;}
 if(element){this.element=element;this.loaded=true;}
 this.regExes={trimSpace:(/^\s*(\w+)\s+(.*?)\s*$/)};if(window.ActiveXObject){this.xmldom=new ActiveXObject("Microsoft.XMLDOM");}},process:function(context,clone,toString){if(this.element.getAttributeNodeNS){if(this.element.getAttributeNodeNS(Jugl.xhtmlns,Jugl.prefix)){this.usingNS=true;}}
 var node=new Jugl.Node(this,this.element);if(clone){node=node.clone();}
 if(context){node.scope=context;}
 try{node.process();}catch(err){Jugl.Console.error("Failed to process "+
-this.element+" node");}
+this.element+" node");throw err;}
 var data;if(toString){if(node.element.innerHTML){data=node.element.innerHTML;}else{if(this.xmldom){data=node.element.xml;}else{var serializer=new XMLSerializer();data=serializer.serializeToString(node.element);}}}else{data=node.element;}
 return data;},load:function(url){this.loading=true;var setElement=function(request){var doc=request.responseXML;this.element=doc.documentElement;this.loading=false;this.loaded=true;this.onLoad();}
 Jugl.Async.loadUrl(url,setElement,this);},onLoad:function(){},CLASS_NAME:"Jugl.Template"});})();(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var Jugl=window[uri];Jugl.Node=Jugl.Class({template:null,element:null,scope:null,initialize:function(template,element){this.template=template;this.element=element;this.scope=new Object();this.scope.repeat=new Object();},clone:function(){var element=this.element.cloneNode(true);var node=new Jugl.Node(this.template,element);Jugl.Util.extend(node.scope,this.scope);return node;},getAttribute:function(localName){var element;if(this.element.nodeType==1){if(this.template.usingNS){element=this.element.getAttributeNodeNS(Jugl.namespaceURI,localName);}else{element=this.element.getAttributeNode(Jugl.prefix+":"+

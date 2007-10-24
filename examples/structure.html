@@ -15,22 +15,22 @@
             // define variables to be used in the template
             var paragraph = "<p><i>Hello World<" + "/i>, from Jugl<" + "/p>";
             var bold = "<b>That's structure<" + "/b>";
+            var invalidXHTML = "& even bad XML is accepted ><><";
 
             // this part does the actual template processing
             window.onload = function() {
-                var template = new Jugl.Template("basic");
+                var template = Jugl.Async.loadTemplate("structure.xml",
+                                                       onComplete);
+            }
+            
+            function onComplete(template) {
                 template.process();
+                var body = document.getElementsByTagName('body')[0];
+                body.appendChild(template.element);
             }
 
         </script>
     </head>
     <body>
-        <div id="basic" style="margin: 0 auto; width: 50%">
-            <div jugl:replace="structure paragraph">replace with html</div>
-            <ul>
-                <li jugl:content="structure bold">html here</li>
-                <li jugl:content="bold">text here</li>
-            </ul>
-        </div>
     </body>
 </html>
