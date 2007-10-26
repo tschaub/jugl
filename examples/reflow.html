@@ -4,7 +4,7 @@
         <title>Jugl Reflow Example</title>
         <link rel="stylesheet" href="style.css" type="text/css" />
         <script type="text/javascript" src="../lib/Firebug/firebug.js"></script>
-        <script type="text/javascript" src="../lib/Jugl.js"></script>
+        <script type="text/javascript" src="../build/Jugl.js"></script>
         <!-- For an uncompressed version of the code, see
              http://projects.tschaub.net/jugl -->
         <script type="text/javascript">
@@ -37,8 +37,8 @@
             on select options.  Because options are added to the dom one at a
             time, the "selected" attribute on an option that is not the first
             one added will not be respected (the selectedIndex is set to the
-            first option added).  This is likely the "correct" browser
-            behavior.</p>
+            first option added).  In Opera, the opposite occurs: the
+            selectedIndex corresponds to the last option added.</p>
             <select name="first">
                 <option jugl:repeat="choice choices"
                         jugl:attributes="value choice[0];
