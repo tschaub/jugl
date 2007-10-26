@@ -7,5 +7,6 @@
         <li jugl:content="structure bold">replace this</li>
         <li jugl:content="bold">replace this</li>
         <li jugl:content="structure invalidXHTML">replace this</li>
-    </ul>        
+    </ul>
+    <p jugl:replace="structure invalidXHTML">replace this</p>
 </div>

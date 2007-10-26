@@ -3,6 +3,7 @@
     <head>
         <title>Jugl Example</title>
         <link rel="stylesheet" href="style.css" type="text/css" />
+        <script type="text/javascript" src="../lib/Firebug/firebug.js"></script>
         <script type="text/javascript" src="../build/Jugl.js"></script>
         <!-- For an uncompressed version of the code, see
              http://projects.tschaub.net/jugl -->
@@ -26,7 +27,7 @@
             function onComplete(template) {
                 template.process();
                 var body = document.getElementsByTagName('body')[0];
-                body.appendChild(template.element);
+                template.appendTo(body);
             }
 
         </script>
