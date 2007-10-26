@@ -39,7 +39,9 @@ this.node.removeSelf();return true;},"attributes":function(){var values=this.get
 this.removeSelf();return true;},"omit-tag":function(){var omit;try{omit=((this.nodeValue=="")||!!(this.evalInScope(this.nodeValue)));}catch(err){Jugl.Console.error("Failed to eval in node scope: "+
 this.nodeValue);throw err;}
 this.removeSelf();if(omit){var children=this.node.getChildNodes();var child;for(var i=0;i<children.length;++i){this.node.insertBefore(children[i]);}
-this.node.removeSelf();}}},CLASS_NAME:"Jugl.Attribute"});})();(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var Jugl=window[uri];Jugl.Template=Jugl.Class({element:null,usingNS:false,xhtmlns:"http://www.w3.org/1999/xhtml",xmldom:null,regExes:null,loaded:false,loading:false,initialize:function(element,options){if(typeof(element)=="string"){var obj=document.getElementById(element);if(!obj){throw Error("Element id not found: "+element);}
+this.node.removeSelf();}},"reflow":function(){var reflow;try{reflow=((this.nodeValue=="")||!!(this.evalInScope(this.nodeValue)));}catch(err){Jugl.Console.error("Failed to eval in node scope: "+
+this.nodeValue);throw err;}
+this.removeSelf();if(reflow){this.node.element.innerHTML=this.node.element.innerHTML;}}},CLASS_NAME:"Jugl.Attribute"});})();(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var Jugl=window[uri];Jugl.Template=Jugl.Class({element:null,usingNS:false,xhtmlns:"http://www.w3.org/1999/xhtml",xmldom:null,regExes:null,loaded:false,loading:false,initialize:function(element,options){if(typeof(element)=="string"){var obj=document.getElementById(element);if(!obj){throw Error("Element id not found: "+element);}
 element=obj;}
 if(element){this.element=element;this.loaded=true;}
 this.regExes={trimSpace:(/^\s*(\w+)\s+(.*?)\s*$/)};if(window.ActiveXObject){this.xmldom=new ActiveXObject("Microsoft.XMLDOM");}},process:function(context,clone,toString){if(this.element.getAttributeNodeNS){if(this.element.getAttributeNodeNS(Jugl.xhtmlns,Jugl.prefix)){this.usingNS=true;}}
@@ -60,7 +62,8 @@ if(!keepProcessing){return;}}}
 var content=this.getAttribute("content");if(content){try{content.process();}catch(err){Jugl.Console.error("Failed to process content attribute");throw err;}}else{var replace=this.getAttribute("replace");if(replace){try{replace.process();}catch(err){Jugl.Console.error("Failed to process replace attribute");throw err;}}}
 var attributes=this.getAttribute("attributes");if(attributes){try{attributes.process();}catch(err){Jugl.Console.error("Failed to process attributes attribute");throw err;}}
 if(!content&&!replace){this.processChildNodes();}
-var omit=this.getAttribute("omit-tag");if(omit){try{omit.process();}catch(err){Jugl.Console.error("Failed to process omit-tag attribute");throw err;}}},processChildNodes:function(){var element,child;var children=this.getChildNodes();for(var i=0;i<children.length;++i){try{children[i].process();}catch(err){Jugl.Console.error("Failed to process "+
+var omit=this.getAttribute("omit-tag");if(omit){try{omit.process();}catch(err){Jugl.Console.error("Failed to process omit-tag attribute");throw err;}}
+var reflow=this.getAttribute("reflow");if(reflow){try{reflow.process();}catch(err){Jugl.Console.error("Failed to process reflow attribute");throw err;}}},processChildNodes:function(){var element,child;var children=this.getChildNodes();for(var i=0;i<children.length;++i){try{children[i].process();}catch(err){Jugl.Console.error("Failed to process "+
 children[i]+" node");throw err;}}},CLASS_NAME:"Jugl.Node"});})();(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var Jugl=window[uri];Jugl.Async={loadTemplate:function(url,onComplete,caller){var createTemplate=function(request){var doc,template;try{doc=request.responseXML;template=new Jugl.Template(doc.documentElement);}catch(invalidXML){try{doc=document.createElement("div");doc.innerHTML=request.responseText;template=new Jugl.Template(doc.firstChild);}catch(invalidHTML){var msg="Can't make HTML out of response: "+
 request.responseText;Jugl.Console.error(msg);throw invalidHTML;}}
 var complete=Jugl.Util.bind(onComplete,caller);complete(template);}

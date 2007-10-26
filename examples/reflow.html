@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN">
+<html>
+    <head>
+        <title>Jugl Reflow Example</title>
+        <link rel="stylesheet" href="style.css" type="text/css" />
+        <script type="text/javascript" src="../build/Jugl.js"></script>
+        <!-- For an uncompressed version of the code, see
+             http://projects.tschaub.net/jugl -->
+        <script type="text/javascript">
+            
+            // import
+            var uri = "http://jugl.tschaub.net/trunk/lib/Jugl.js";
+            var Jugl = window[uri];
+            
+            var choices = [
+                ['one', 'option one'],
+                ['two', 'select me!'],
+                ['three', 'option three']
+            ];
+            
+            var selectedIndex = 1;
+        
+            // define variables to be used in the template
+            // this part does the actual template processing
+            window.onload = function() {
+                var template = new Jugl.Template("basic");
+                template.process();
+            }
+
+        </script>
+    </head>
+    <body>
+        <div id="basic" style="margin: 0 auto; width: 50%">
+            <h3>jugl:reflow</h3>
+            <p>There is an issue with Jugl in Firefox with setting attributes
+            on select options.  Because options are added to the dom one at a
+            time, the "selected" attribute on an option that is not the first
+            one added will not be respected (the selectedIndex is set to the
+            first option added).  This is likely the "correct" browser
+            behavior.</p>
+            <select name="first">
+                <option jugl:repeat="choice choices"
+                        jugl:attributes="value choice[0];
+                            selected (repeat.choice.index == selectedIndex)
+                                && 'selected';"
+                        jugl:content="choice[1]">
+                    an option here
+                </option>
+            </select>
+            <p>It appears that IE doesn't actually append options to the dom
+            until the repeat loop has finished.  So, the "selected" attribute
+            is respected there.  In any case, to get consistent behavior in
+            all browsers, you can use the Jugl "reflow" attribute to force
+            a browser reflow after the repeat has finished.</p>
+            <select name="second" jugl:reflow="true">
+                <option jugl:repeat="choice choices"
+                        jugl:attributes="value choice[0];
+                            selected (repeat.choice.index == selectedIndex)
+                                && 'selected';"
+                        jugl:content="choice[1]">
+                    an option here
+                </option>
+            </select>
+            <p>This second select element has a <b>jugl:reflow</b>
+            attribute.  The "select me!" option should be selected in all
+            browsers.</p>
+        </div>
+    </body>
+</html>
