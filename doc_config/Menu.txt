@@ -33,11 +33,11 @@ File: Jugl  (Jugl.js)
 
 Group: Jugl  {
 
-   File: Async  (Jugl/Async.js)
    File: Attribute  (Jugl/Attribute.js)
    File: Cass  (Jugl/Class.js)
    File: Console  (Jugl/Console.js)
    File: Node  (Jugl/Node.js)
+   File: Request  (Jugl/Request.js)
    File: SingleFile  (Jugl/SingleFile.js)
    File: Template  (Jugl/Template.js)
    File: Util  (Jugl/Util.js)

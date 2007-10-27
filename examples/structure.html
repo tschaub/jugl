@@ -20,8 +20,8 @@
 
             // this part does the actual template processing
             window.onload = function() {
-                var template = Jugl.Async.loadTemplate("structure.xml",
-                                                       onComplete);
+                var template = Jugl.Request.loadTemplate("structure.xml",
+                                                         onComplete);
             }
             
             function onComplete(template) {
