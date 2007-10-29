@@ -36,7 +36,7 @@ Group: Jugl  {
    File: Attribute  (Jugl/Attribute.js)
    File: Cass  (Jugl/Class.js)
    File: Console  (Jugl/Console.js)
-   File: Node  (Jugl/Node.js)
+   File: Element  (Jugl/Element.js)
    File: Request  (Jugl/Request.js)
    File: SingleFile  (Jugl/SingleFile.js)
    File: Template  (Jugl/Template.js)

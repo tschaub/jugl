@@ -9,8 +9,7 @@
         <script type="text/javascript">
             
             // import
-            var uri = "http://jugl.tschaub.net/trunk/lib/Jugl.js";
-            var Jugl = window[uri];
+            var Jugl = window["http://jugl.tschaub.net/trunk/lib/Jugl.js"];
         
             // define variables to be used in the template
             var name = "Jugl";
@@ -126,7 +125,7 @@
                 <i jugl:omit-tag="clutter">
                     Thanks for trying
                     <a jugl:content="name"
-                       jugl:attributes="href 'http://www.google.com/search?q=' + name + '+template+attribute+language'">
+                       jugl:attributes="href 'http://www.google.com/search?q=' + name + '+template+library'">
                         Project Name
                     </a>.
                 </i>
