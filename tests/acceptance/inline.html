@@ -1,0 +1,107 @@
+<html>
+<head>
+  <script src="../../lib/Jugl.js"></script>
+  <script type="text/javascript">
+  
+    var context = [];
+    function test_inline(t) {
+        var numTests = window.context.length;
+        t.plan(numTests);   
+        var Jugl = window["http://jugl.tschaub.net/trunk/lib/Jugl.js"];
+        
+        var context, template, results;
+        for(var i=0; i<numTests; ++i) {
+            template = new Jugl.Template("template" + i);
+            if(!template) {
+                t.fail("unable to find template" + i);
+                continue;
+            }
+            results = document.getElementById("results" + i);
+            if(!results) {
+                t.fail("unable to find results" + i);
+                continue;
+            }
+            try {
+                template.process(window.context[i]);
+                got = document.createElement('div');
+                got.innerHTML = template.node.innerHTML;
+                exp = document.createElement('div');
+                exp.innerHTML = results.innerHTML;
+                t.html_eq(got, exp, "template" + i + " correctly processed");
+            } catch(err) {
+                t.fail("error processing template" + i + ": " + err);
+            }
+        }
+    }    
+
+  </script>
+</head>
+<body>
+
+    <script type="text/javascript">
+        context[0] = {foo: "bar"};
+    </script>
+    <div id="template0">
+        <span jugl:content="foo">junk</span>
+        <span><b jugl:replace="foo">junk</b></span>
+        <span jugl:define="ack foo" jugl:content="ack">junk</span>
+        <span jugl:condition="true" jugl:content="foo">junk</span>
+        <span jugl:condition="false" jugl:content="foo">junk</span>
+        <span jugl:attributes="class foo">classy</span>
+        <span jugl:omit-tag="false">spare me</span>
+        <span jugl:omit-tag="true">tag begone</span>
+    </div>
+    <div id="results0">
+        <span>bar</span>
+        <span>bar</span>
+        <span>bar</span>
+        <span>bar</span>
+
+        <span class="bar">classy</span>
+        <span>spare me</span>
+        tag begone
+    </div>
+
+    <script type="text/javascript">
+        context[1] = {array: ["a", "b", "c"]};
+    </script>
+    <div id="template1">
+        <ul>a list
+            <li jugl:repeat="item array"
+                jugl:content="item"
+                jugl:attributes="class repeat.item.odd ? 'odd' : 'even';
+                                 title 't' + repeat.item.index">
+                item here
+            </li>
+        </ul>
+    </div>
+    <div id="results1">
+        <ul>a list
+            <li class="even" title="t0">a</li>
+            <li class="odd" title="t1">b</li>
+            <li class="even" title="t2">c</li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        context[2] = {object: {k0: "v0", k1: "v1", k2: "v2"}};
+    </script>
+    <div id="template2">
+        <ul>a list
+            <li jugl:repeat="item object"
+                jugl:attributes="class repeat.item.odd ? 'odd' : 'even';
+                                 title 't' + repeat.item.index">
+                <span jugl:content="item + ':' + object[item]">key:value</span>
+            </li>
+        </ul>
+    </div>
+    <div id="results2">
+        <ul>a list
+            <li class="even" title="t0"><span>k0:v0</span></li>
+            <li class="odd" title="t1"><span>k1:v1</span></li>
+            <li class="even" title="t2"><span>k2:v2</span></li>
+        </ul>
+    </div>
+
+</body>
+</html>
