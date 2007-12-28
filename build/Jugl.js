@@ -40,7 +40,7 @@ str;Jugl.Console.error(msg);throw err;}
 if(this.element.node.xml&&this.template.xmldom){try{this.template.xmldom.loadXML(wrapper.outerHTML);}catch(err){msg="Can't transform string into valid XML : "+
 str;Jugl.Console.error(msg);throw err;}
 wrapper=this.template.xmldom.firstChild;}
-var children=wrapper.childNodes;var child;for(var i=0;i<children.length;++i){this.element.node.parentNode.insertBefore(children[i],this.element.node);}}else{var text;if(this.element.node.xml&&this.template.xmldom){text=this.template.xmldom.createTextNode(str);}else{text=document.createTextNode(str);}
+while(wrapper.firstChild){this.element.node.parentNode.insertBefore(wrapper.firstChild,this.element.node);}}else{var text;if(this.element.node.xml&&this.template.xmldom){text=this.template.xmldom.createTextNode(str);}else{text=document.createTextNode(str);}
 var replacement=new Jugl.Element(this.template,text);this.element.insertBefore(replacement);}
 this.element.removeSelf();return true;},"attributes":function(){var values=this.getAttributeValues();var pair,name,value;for(var i=0;i<values.length;++i){pair=this.splitAttributeValue(values[i]);name=pair[0];value=this.evalInScope(pair[1]);if(value!==false){this.element.setAttribute(name,value);}}
 this.removeSelf();return true;},"omit-tag":function(){var omit;try{omit=((this.nodeValue=="")||!!(this.evalInScope(this.nodeValue)));}catch(err){Jugl.Console.error("Failed to eval in element scope: "+
