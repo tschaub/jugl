@@ -127,5 +127,17 @@
         <span><div>foo</div>more foo</span>
     </div>
 
+    <script type="text/javascript">
+        context[5] = {
+            divDiv: "<div>foo</div><div>more foo</div>"
+        };
+    </script>
+    <div id="template5">
+        <span><span jugl:replace="structure divDiv">divDiv replaced</span></span>
+    </div>
+    <div id="results5">
+        <span><div>foo</div><div>more foo</div></span>
+    </div>
+
 </body>
 </html>
