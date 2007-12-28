@@ -103,5 +103,29 @@
         </ul>
     </div>
 
+    <script type="text/javascript">
+        context[3] = {
+            imgTxt: "<img src='foo.bar'>more foo"
+        };
+    </script>
+    <div id="template3">
+        <span><span jugl:replace="structure imgTxt">imgTxt replaced</span></span>
+    </div>
+    <div id="results3">
+        <span><img src='foo.bar'>more foo</span>
+    </div>
+
+    <script type="text/javascript">
+        context[4] = {
+            divTxt: "<div>foo</div>more foo"
+        };
+    </script>
+    <div id="template4">
+        <span><span jugl:replace="structure divTxt">divTxt replaced</span></span>
+    </div>
+    <div id="results4">
+        <span><div>foo</div>more foo</span>
+    </div>
+
 </body>
 </html>
