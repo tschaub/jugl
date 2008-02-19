@@ -64,7 +64,7 @@ if(node){this.node=node;this.loaded=true;}
 this.regExes={trimSpace:(/^\s*(\w+)\s+(.*?)\s*$/)};if(window.ActiveXObject){this.xmldom=new ActiveXObject("Microsoft.XMLDOM");}},process:function(context,clone,toString){if(this.node.getAttributeNodeNS){if(this.node.getAttributeNodeNS(Jugl.xhtmlns,Jugl.prefix)){this.usingNS=true;}}
 var element=new Jugl.Element(this,this.node);if(clone){element=element.clone();}
 if(context){element.scope=context;}
-try{element.process();}catch(err){alert(err);Jugl.Console.error("Failed to process "+
+try{element.process();}catch(err){Jugl.Console.error("Failed to process "+
 this.node.nodeName+" node");throw err;}
 var data;if(toString){if(element.node.innerHTML){data=element.node.innerHTML;}else{if(this.xmldom){data=element.node.xml;}else{var serializer=new XMLSerializer();data=serializer.serializeToString(element.node);}}}else{data=element.node;}
 return data;},load:function(url){this.loading=true;var setNode=function(template){this.node=template.node;this.loading=false;this.loaded=true;this.onLoad();}
