@@ -1,6 +1,6 @@
 <html>
 <head>
-  <script src="../../lib/Jugl.js"></script>
+  <script src="../../build/Jugl.js"></script>
   <script type="text/javascript">
 
     function test_Jugl(t) {
@@ -8,23 +8,22 @@
         
         var uri = "http://jugl.tschaub.net/trunk/lib/Jugl.js";
         var prefix = "jugl";
-        
         // check that Jugl is "exported"
-        t.eq(
-            typeof window[uri], "object",
+        t.ok(
+            typeof window[uri] == "object",
             "correct namespace for Jugl"
         );
-        
+
         // "import" Jugl to custom namespace
         var MyNS = {};
         MyNS.Custom = window[uri];
 
         // check default prefix
-        t.eq(
-            MyNS.Custom.prefix, prefix,
+        t.ok(
+            MyNS.Custom.prefix == prefix,
             "correct default namespace alias"
         );
-        
+
     }    
 
   </script>
