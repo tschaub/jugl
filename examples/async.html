@@ -46,9 +46,10 @@
                 return bool;
             }
             
-            // create a template and set it up to load
+            // create a template
             var template = new Jugl.Template();
-
+            
+            // process after loading
             template.onLoad = function() {
                 // process the template in place
                 this.process();
@@ -57,7 +58,7 @@
                 this.appendTo(body);
             }
 
-            // this part does the actual template processing
+            // load the template at your leisure
             window.onload = function() {
                 template.load("template.xml");
             }
