@@ -5,7 +5,7 @@
  * Copyright 2007 Tim Schaub
  */
 
-(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var Jugl={singleFile:true};window[uri]=Jugl;})();(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var singleFile=(typeof window[uri]=="object"&&window[uri].singleFile);var Jugl={prefix:"jugl",namespaceURI:"http://namespace.jugl.org/"};window[uri]=Jugl;})();(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var Jugl=window[uri];Jugl.Class=function(){var Class=function(){if(this===Jugl){var msg="Create an instance of a Jugl "+"class with the new keyword";throw Error(msg);}
+(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var singleFile=(typeof window[uri]=="object"&&window[uri].singleFile);var Jugl={prefix:"jugl",namespaceURI:"http://namespace.jugl.org/"};window[uri]=Jugl;})();(function(){var uri="http://jugl.tschaub.net/trunk/lib/Jugl.js";var Jugl=window[uri];Jugl.Class=function(){var Class=function(){if(this===Jugl){var msg="Create an instance of a Jugl "+"class with the new keyword";throw Error(msg);}
 this.initialize.apply(this,arguments);}
 var extended={toString:function(){return"["+this.CLASS_NAME+"]";}};var parent;for(var i=0;i<arguments.length;++i){if(typeof arguments[i]=="function"){parent=arguments[i].prototype;}else{parent=arguments[i];}
 Jugl.Util.extend(extended,parent);}
