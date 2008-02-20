@@ -50,7 +50,7 @@
         };
         var template = new Jugl.Template('template1');
         var data = template.process();
-        t.ok(data == "processed", "template.process returns template.node");
+        t.eq(data, "processed", "template.process returns template.node");
 
         // test template.process with context
         Jugl.Element.prototype.process = function() {
@@ -60,7 +60,7 @@
             foo: "bar"
         };
         data = template.process(scope);
-        t.ok(data == scope, "template process with scope sets node.scope");
+        t.eq(data, scope, "template process with scope sets node.scope");
 
         Jugl.Element.prototype.process = realProcess;
         
@@ -74,15 +74,15 @@
         };
         template = new Jugl.Template('template1');
         data = template.process(null, true);
-        t.ok(data == "cloned", "clone true calls node.clone");
+        t.eq(data, "cloned", "clone true calls node.clone");
         Jugl.Element.prototype.clone = realClone;
         
         // test template.process with toString
         var template = new Jugl.Template('template1');
         window.testContent = "foo";
         var data = template.process(null, false, true);
-        t.ok(
-            data.replace(/^\s+|\s+$/g, '').toLowerCase() == "<p>foo<"+"/p>",
+        t.eq(
+            data.replace(/^\s+|\s+$/g, '').toLowerCase(), "<p>foo<"+"/p>",
             "node processed to string"
         );
     }

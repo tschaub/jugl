@@ -9,8 +9,8 @@
         var uri = "http://jugl.tschaub.net/trunk/lib/Jugl.js";
         var prefix = "jugl";
         // check that Jugl is "exported"
-        t.ok(
-            typeof window[uri] == "object",
+        t.eq(
+            typeof window[uri], "object",
             "correct namespace for Jugl"
         );
 
@@ -19,8 +19,8 @@
         MyNS.Custom = window[uri];
 
         // check default prefix
-        t.ok(
-            MyNS.Custom.prefix == prefix,
+        t.eq(
+            MyNS.Custom.prefix, prefix,
             "correct default namespace alias"
         );
 
