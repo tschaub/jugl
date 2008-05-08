@@ -22,7 +22,7 @@ if len(sys.argv) > 2:
 print "Merging libraries."
 merged = mergejs.run(sourceDirectory, None, configFilename)
 print "Compressing."
-minimized = jsmin.jsmin(merged)
+minimized = jsmin.jsmin("(function(){" + merged + "})();")
 print "Adding license file."
 minimized = file("license.txt").read() + minimized
 
