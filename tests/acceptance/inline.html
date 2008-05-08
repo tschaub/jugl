@@ -22,7 +22,7 @@
                 continue;
             }
             try {
-                template.process(window.context[i]);
+                template.process({context: window.context[i]});
                 got = document.createElement('div');
                 got.innerHTML = template.node.innerHTML;
                 exp = document.createElement('div');
