@@ -65,7 +65,10 @@
             // this part does the actual template processing
             window.onload = function() {
                 var template = new Jugl.Template("basic");
-                var data = template.process(null, true, true);
+                var data = template.process({
+                    clone: true,
+                    string: true
+                });
                 var output = document.getElementById('output');
                 output.appendChild(document.createTextNode(data));
             }

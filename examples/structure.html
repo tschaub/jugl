@@ -19,14 +19,14 @@
 
             // this part does the actual template processing
             window.onload = function() {
-                var template = Jugl.Request.loadTemplate("structure.xml",
-                                                         onComplete);
-            }
-            
-            function onComplete(template) {
-                template.process();
-                var body = document.getElementsByTagName('body')[0];
-                template.appendTo(body);
+                var template = new Jugl.Template({
+                    url: "structure.xml",
+                    callback: function(template) {
+                        template.process({
+                            parent: document.body
+                        });
+                    }
+                });
             }
 
         </script>
