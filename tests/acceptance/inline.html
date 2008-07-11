@@ -1,17 +1,17 @@
 <html>
 <head>
-  <script src="../../build/Jugl.js"></script>
+  <script src="../../build/jugl.js"></script>
   <script type="text/javascript">
   
     var context = [];
     function test_inline(t) {
         var numTests = window.context.length;
         t.plan(numTests);   
-        var Jugl = window["http://jugl.tschaub.net/trunk/lib/Jugl.js"];
+        var jugl = window["http://jugl.tschaub.net/trunk/lib/jugl.js"];
         
         var context, template, results;
         for(var i=0; i<numTests; ++i) {
-            template = new Jugl.Template("template" + i);
+            template = new jugl.Template("template" + i);
             if(!template) {
                 t.fail("unable to find template" + i);
                 continue;

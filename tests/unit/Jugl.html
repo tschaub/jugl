@@ -1,20 +1,20 @@
 <html>
 <head>
-  <script src="../../build/Jugl.js"></script>
+  <script src="../../build/jugl.js"></script>
   <script type="text/javascript">
 
-    function test_Jugl(t) {
+    function test_jugl(t) {
         t.plan(2);
         
-        var uri = "http://jugl.tschaub.net/trunk/lib/Jugl.js";
+        var uri = "http://jugl.tschaub.net/trunk/lib/jugl.js";
         var prefix = "jugl";
-        // check that Jugl is "exported"
+        // check that jugl is "exported"
         t.eq(
             typeof window[uri], "object",
-            "correct namespace for Jugl"
+            "correct namespace for jugl"
         );
 
-        // "import" Jugl to custom namespace
+        // "import" jugl to custom namespace
         var MyNS = {};
         MyNS.Custom = window[uri];
 

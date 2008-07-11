@@ -1,16 +1,16 @@
 <html>
 <head>
-  <script src="../../../build/Jugl.js"></script>
+  <script src="../../../build/jugl.js"></script>
   <script type="text/javascript">
 
     function test_Template_constructor(t) {
         t.plan(6);
         
         // import
-        var Jugl = window["http://jugl.tschaub.net/trunk/lib/Jugl.js"];
+        var jugl = window["http://jugl.tschaub.net/trunk/lib/jugl.js"];
 
         // create a new template
-        var template = new Jugl.Template();
+        var template = new jugl.Template();
         
         // no template id provided, template should not be loaded
         t.ok(!template.loaded, "template not loaded if no id given");
@@ -18,74 +18,24 @@
         // create template with bad id
         var error;
         try {
-            template = new Jugl.Template("bogus");
+            template = new jugl.Template("bogus");
         } catch(err) {
             error = err;
         }
         t.ok(error instanceof Error, "error thrown for bogus template id");
         
         // create valid template
-        template = new Jugl.Template("template1");
+        template = new jugl.Template("template1");
         t.eq(template.loaded, true, "valid id template sets loaded");
         t.eq(template.node.nodeType, 1, "valid id template sets node");
         
         // alternatively, create a template with a dom element
         var node = document.getElementById("template1");
-        template = new Jugl.Template(node);
+        template = new jugl.Template(node);
         t.eq(template.loaded, true, "node template sets loaded");
         t.ok(template.node == node, "node template sets node"); 
     }
 
-    function test_Template_process(t) {
-        t.plan(4);
-        
-        // import
-        var uri = "http://jugl.tschaub.net/trunk/lib/Jugl.js";
-        var Jugl = window[uri];
-        
-        // test template.process
-        var realProcess = Jugl.Element.prototype.process;
-        Jugl.Element.prototype.process = function() {
-            this.node = "processed";
-        };
-        var template = new Jugl.Template('template1');
-        var data = template.process();
-        t.eq(data, "processed", "template.process returns template.node");
-
-        // test template.process with context
-        Jugl.Element.prototype.process = function() {
-            this.node = this.scope;
-        };
-        var scope = {
-            foo: "bar"
-        };
-        data = template.process({context: scope});
-        t.eq(data, scope, "template process with scope sets node.scope");
-
-        Jugl.Element.prototype.process = realProcess;
-        
-        // test template.process with clone
-        var realClone = Jugl.Element.prototype.clone;
-        Jugl.Element.prototype.clone = function() {
-            return {
-                node: "cloned",
-                process: function() {}
-            };
-        };
-        template = new Jugl.Template('template1');
-        data = template.process({clone: true});
-        t.eq(data, "cloned", "clone true calls node.clone");
-        Jugl.Element.prototype.clone = realClone;
-        
-        // test template.process with toString
-        var template = new Jugl.Template('template1');
-        window.testContent = "foo";
-        var data = template.process({string: true});
-        t.eq(
-            data.replace(/^\s+|\s+$/g, '').toLowerCase(), "<p>foo<"+"/p>",
-            "node processed to string"
-        );
-    }
 
   </script>
 </head>
