@@ -9,7 +9,7 @@
         <script type="text/javascript">
             
             // import
-            var Jugl = window["http://jugl.tschaub.net/trunk/lib/Jugl.js"];
+            var jugl = window["http://jugl.tschaub.net/trunk/lib/jugl.js"];
         
             // define variables to be used in the template
             var name = "Jugl";
@@ -47,7 +47,7 @@
 
             // this part does the actual template processing
             window.onload = function() {
-                var template = new Jugl.Template("basic");
+                var template = new jugl.Template("basic");
                 template.process();
             }
 

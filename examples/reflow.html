@@ -10,7 +10,7 @@
         <script type="text/javascript">
             
             // import
-            var Jugl = window["http://jugl.tschaub.net/trunk/lib/Jugl.js"];
+            var jugl = window["http://jugl.tschaub.net/trunk/lib/jugl.js"];
             
             var choices = [
                 ['one', 'option one'],
@@ -23,7 +23,7 @@
             // define variables to be used in the template
             // this part does the actual template processing
             window.onload = function() {
-                var template = new Jugl.Template("basic");
+                var template = new jugl.Template("basic");
                 template.process();
             }
 

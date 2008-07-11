@@ -10,7 +10,7 @@
         <script type="text/javascript">
         
             // import
-            var Jugl = window["http://jugl.tschaub.net/trunk/lib/Jugl.js"];
+            var jugl = window["http://jugl.tschaub.net/trunk/lib/jugl.js"];
 
             // define variables to be used in the template
             var name = "Jugl";
@@ -48,7 +48,7 @@
             
             window.onload = function() {
                 // create a template, load from url, process and append to body
-                var template = new Jugl.Template({
+                var template = new jugl.Template({
                     url: "template.xml",
                     callback: function(template) {
                         template.process({parent: document.body});
