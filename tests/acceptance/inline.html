@@ -236,7 +236,21 @@
         </blink>
     </div>
 
-
+    <script type="text/javascript">
+        context[9] = {word: "foo"};
+    </script>
+    <div id="template9">
+        <ul>
+            <li jugl:content="word">This content will be replaced.</li>
+            <li jugl:content="word.toUpperCase()">Any expression is valid.</li>
+        </ul>
+    </div>
+    <div id="results9">
+        <ul>
+            <li>foo</li>
+            <li>FOO</li>
+        </ul>
+    </div>
 
 </body>
 </html>
