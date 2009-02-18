@@ -206,6 +206,19 @@
         </table>
     </div>
 
+    <script type="text/javascript">
+        context[7] = {
+            text: "Some text.  (And some other symbols like < and >.)"
+        };
+    </script>
+    <div id="template7">
+        <p jugl:replace="text">This entire paragraph will be replaced.</p>
+    </div>
+    <div id="results7">
+        Some text.  (And some other symbols like &lt; and &gt;.)
+    </div>
+
+
 
 </body>
 </html>
