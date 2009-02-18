@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-          URL_ROOT:    '../',
-          VERSION:     '0.9',
-          COLLAPSE_MODINDEX: false,
-          FILE_SUFFIX: '.html'
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -47,8 +48,37 @@
 <span id="jugl-define"></span><h1>jugl:define<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>The <tt class="docutils literal"><span class="pre">jugl:define</span></tt> attribute is used to define a variable that will be available in any expressions of all child elements.</p>
 <p>Syntax:</p>
-<div class="highlight-python"><pre>argument ::= variable_name expression
+<div class="highlight-python"><pre>argument ::= define_statement [';' define_statement]*
+define_statement ::= variable_name expression
 variable_name ::= Name</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To include a semicolon (;) in an expression, it must be escaped by doubling it (;;).</p>
+</div>
+<p>When you define a variable on an element, it can be accessed in other statements on that element and any child elements it contains.  Variables defined locally will hide any global variables with the same name.</p>
+<p>The value of the define variable will be the result of the expression.</p>
+<p>The markup below shows how define variables can be accessed in a template.</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;template_id&quot;</span> <span class="na">jugl:define=</span><span class="s">&quot;date Date(); url window.location.href&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>
+        Today is <span class="nt">&lt;span</span> <span class="na">jugl:replace=</span><span class="s">&quot;date&quot;</span><span class="nt">&gt;</span>today&#39;s date<span class="nt">&lt;/span&gt;</span>, and you&#39;re
+        looking at <span class="nt">&lt;span</span> <span class="na">jugl:replace=</span><span class="s">&quot;url&quot;</span><span class="nt">&gt;</span>this url<span class="nt">&lt;/span&gt;</span>.
+    <span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p>Processed with the following code:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">(</span><span class="k">new</span> <span class="nx">jugl</span><span class="p">.</span><span class="nx">Template</span><span class="p">(</span><span class="s2">&quot;template_id&quot;</span><span class="p">)).</span><span class="nx">process</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>the markup becomes something like:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;template_id&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>
+        Today is Wed Feb 18 2009 00:15:41 GMT-0700 (MST), and you&#39;re
+        looking at http://doc.libjs.net/jugl/trunk/.
+    <span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
 </div>
 </div>
 
@@ -87,7 +117,7 @@ variable_name ::= Name</pre>
     </div>
     <div class="footer">
       &copy; Copyright 2009, Tim Schaub.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1.
     </div>
   </body>
 </html>
