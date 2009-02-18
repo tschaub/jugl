@@ -36,7 +36,7 @@ Processed with the following code:
 
     (new jugl.Template("template_id")).process();
 
-the markup becomes something like:
+The markup becomes something like:
 
 .. code-block:: html
 
