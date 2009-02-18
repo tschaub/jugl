@@ -289,5 +289,21 @@
         <p>
     </div>
 
+    <script type="text/javascript">
+        context[12] = {
+            greeting: "Hello World!"
+        };
+    </script>
+    <div id="template12">
+        <p jugl:content="greeting">
+            This content will be substituted with the value of the "greeting" variable.
+        </p>
+    </div>
+    <div id="results12">
+        <p>
+            Hello World!
+        </p>
+    </div>
+
 </body>
 </html>
