@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN">
+<html>
+    <head>
+        <title>Jugl Define Example</title>
+        <link rel="stylesheet" href="style.css" type="text/css" />
+        <script type="text/javascript" src="../build/jugl.js"></script>
+        <!-- For an uncompressed version of the code, see
+             http://projects.tschaub.net/jugl -->
+        <script type="text/javascript">
+            
+            // import
+            var jugl = window["http://jugl.tschaub.net/trunk/lib/jugl.js"];
+        
+            // define variables to be used in the template
+            // this part does the actual template processing
+            window.onload = function() {
+                var template = new jugl.Template("template_id");
+                template.process();
+            }
+
+        </script>
+    </head>
+    <body>
+        <div id="template_id" jugl:define="date Date(); url window.location.href">
+            <p>
+                Today is <span jugl:replace="date">today's date</span>, and you're
+                looking at <span jugl:replace="url">this url</span>.
+            </p>
+        </div>
+    </body>
+</html>
