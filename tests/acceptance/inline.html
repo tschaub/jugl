@@ -218,6 +218,24 @@
         Some text.  (And some other symbols like &lt; and &gt;.)
     </div>
 
+    <script type="text/javascript">
+        context[8] = {};
+    </script>
+    <div id="template8">
+        <blink jugl:omit-tag="">
+            This content will not <b>blink</b>.
+        </blink>
+        <blink jugl:omit-tag="2 + 2 == 5">
+            Grade A browsers still support blink.
+        </blink>
+    </div>
+    <div id="results8">
+        This content will not <b>blink</b>.
+        <blink>
+            Grade A browsers still support blink.
+        </blink>
+    </div>
+
 
 
 </body>
