@@ -23,7 +23,7 @@ The markup below uses ``jugl:attributes`` in a template:
 
     <div id="template_id">
         <img jugl:attributes="src source; alt description" />
-        <p jugl:attributes="class addClass || 'foo'">
+        <p jugl:attributes="class addClass && 'foo'">
             This paragraph will only be given a class name if addClass is true.
         <p>
     </div>

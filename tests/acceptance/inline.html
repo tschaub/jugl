@@ -269,5 +269,25 @@
         </div>
     </div>
 
+    <script type="text/javascript">
+        context[11] = {
+            source: "path/to/image.png",
+            description: "my image",
+            addClass: false
+        };
+    </script>
+    <div id="template11">
+        <img jugl:attributes="src source; alt description" />
+        <p jugl:attributes="class addClass && 'foo'">
+            This paragraph will only be given a class name if addClass is true.
+        <p>
+    </div>
+    <div id="results11">
+        <img src="path/to/image.png" alt="my image" />
+        <p>
+            This paragraph will only be given a class name if addClass is true.
+        <p>
+    </div>
+
 </body>
 </html>
