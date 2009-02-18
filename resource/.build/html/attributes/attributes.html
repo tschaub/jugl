@@ -8,11 +8,10 @@
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.9',
-        COLLAPSE_MODINDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  false
+          URL_ROOT:    '../',
+          VERSION:     '0.9',
+          COLLAPSE_MODINDEX: false,
+          FILE_SUFFIX: '.html'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -52,6 +51,36 @@
 attribute_statement ::= attribute_name expression
 attribute_name ::= Name</pre>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To include a semicolon (;) in an expression, it must be escaped by doubling it (;;).</p>
+</div>
+<p>To set a (non-namespaced) attribute on an element, add a <tt class="docutils literal"><span class="pre">jugl:attribute</span></tt> attribute with the attribute name and an expression that results in the new attribute value.  If an expression evaluates to <tt class="docutils literal"><span class="pre">false</span></tt>, the new attribute will not be set.</p>
+<p>The markup below uses <tt class="docutils literal"><span class="pre">jugl:attributes</span></tt> in a template:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;template_id&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">jugl:attributes=</span><span class="s">&quot;src source; alt description&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;p</span> <span class="na">jugl:attributes=</span><span class="s">&quot;class addClass &amp;&amp; &#39;foo&#39;&quot;</span><span class="nt">&gt;</span>
+        This paragraph will only be given a class name if addClass is true.
+    <span class="nt">&lt;p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p>The template could be processed with the following code:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">source</span> <span class="o">=</span> <span class="s2">&quot;path/to/image.png&quot;</span><span class="o">;</span>
+<span class="kd">var</span> <span class="nx">description</span> <span class="o">=</span> <span class="s2">&quot;my image&quot;</span><span class="o">;</span>
+<span class="kd">var</span> <span class="nx">addClass</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>  <span class="c">// if true, the paragraph will get &#39;foo&#39; class name</span>
+<span class="p">(</span><span class="k">new</span> <span class="nx">jugl</span><span class="p">.</span><span class="nx">Template</span><span class="p">(</span><span class="s2">&quot;template_id&quot;</span><span class="p">)).</span><span class="nx">process</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>The template markup will look like the following after being processed:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;template_id&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;path/to/image.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;my image&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;p&gt;</span>
+        This paragraph will only be given a class name if addClass is true.
+    <span class="nt">&lt;p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
 </div>
 
 
@@ -89,7 +118,7 @@ attribute_name ::= Name</pre>
     </div>
     <div class="footer">
       &copy; Copyright 2009, Tim Schaub.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.
     </div>
   </body>
 </html>

@@ -8,11 +8,10 @@
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.9',
-        COLLAPSE_MODINDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  false
+          URL_ROOT:    '../',
+          VERSION:     '0.9',
+          COLLAPSE_MODINDEX: false,
+          FILE_SUFFIX: '.html'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -51,6 +50,92 @@
 <div class="highlight-python"><pre>argument ::= variable_name expression
 variable_name ::= Name</pre>
 </div>
+<p>Given an array or other object to use as a sequence, <tt class="docutils literal"><span class="pre">jugl:repeat</span></tt> statements will replicate an element (and all child elements) for each item in the sequence.  When an array is used as the expression, the <tt class="docutils literal"><span class="pre">variable_name</span></tt> will be set to the value of each item in the array (not to the array indices).  When an object is used as the expression, the <tt class="docutils literal"><span class="pre">variable_name</span></tt> will be set to each property name (or key) in the object (and not the property value).</p>
+<p>In addition to having access to the <tt class="docutils literal"><span class="pre">variable_name</span></tt>, the element containing the attribute and all child elements will have access to a special repeat variable.  The repeat variable is an object available to the element with the <tt class="docutils literal"><span class="pre">jugl:repeat</span></tt> attribute and all child elements.  This object is given a property for each <tt class="docutils literal"><span class="pre">variable_name</span></tt> - in the case of nested repeat statements, the object will have multiple properties.  These named properties are themselves objects, each with special properties that provide access to information about the iteration.</p>
+<p>Properties accessible within repeat statements:</p>
+<ul class="simple">
+<li>index - repetition number, starting from zero.</li>
+<li>number - repetition number, starting from one.</li>
+<li>even - <tt class="docutils literal"><span class="pre">true</span></tt> for even-indexed repetitions (0, 2, 4, ...).</li>
+<li>odd - <tt class="docutils literal"><span class="pre">true</span></tt> for odd-indexed repetitions (1, 3, 5, ...).</li>
+<li>start - <tt class="docutils literal"><span class="pre">true</span></tt> for the starting repetition (index 0).</li>
+<li>end - <tt class="docutils literal"><span class="pre">true</span></tt> for the ending, or final, repetition.</li>
+<li>length - length of the sequence, which will be the total number of repetitions.</li>
+</ul>
+<p>The following markup creates a template that uses several <tt class="docutils literal"><span class="pre">jugl:repeat</span></tt> statements:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;template_id&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">jugl:repeat=</span><span class="s">&quot;item tasks&quot;</span> <span class="na">jugl:content=</span><span class="s">&quot;repeat.item.number + &#39;: &#39; + item&quot;</span><span class="nt">&gt;</span>
+            This will get replaced by something like &#39;#: task&#39;.
+        <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;p&gt;</span>
+        Statements about my dog:
+        <span class="nt">&lt;span</span> <span class="na">jugl:repeat=</span><span class="s">&quot;trait dog&quot;</span> <span class="na">jugl:content=</span><span class="s">&quot;&#39;Her &#39; + trait + &#39; is &#39; + dog[trait] + &#39;.&#39;&quot;</span><span class="nt">&gt;</span>
+            a statement here
+        <span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;table&gt;</span>
+        <span class="nt">&lt;tr</span> <span class="na">jugl:repeat=</span><span class="s">&quot;row data&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;td</span> <span class="na">jugl:repeat=</span><span class="s">&quot;cell data[repeat.row.index]&quot;</span>
+                <span class="na">jugl:content=</span><span class="s">&quot;cell&quot;</span>
+                <span class="na">jugl:attributes=</span><span class="s">&quot;class repeat.row.odd ? &#39;oddrow&#39; : &#39;evenrow&#39;&quot;</span><span class="nt">&gt;</span>
+                cell contents get written here
+            <span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/table&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p>The above template could be processed with the following code:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;work&quot;</span><span class="o">,</span> <span class="s2">&quot;play&quot;</span><span class="o">,</span> <span class="s2">&quot;sleep&quot;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">dog</span> <span class="o">=</span> <span class="p">{</span><span class="nx">bark</span><span class="o">:</span> <span class="s2">&quot;loud&quot;</span><span class="o">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;black&quot;</span><span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;r0c0&quot;</span><span class="o">,</span> <span class="s2">&quot;r0c1&quot;</span><span class="p">]</span><span class="o">,</span>
+    <span class="p">[</span><span class="s2">&quot;r1c0&quot;</span><span class="o">,</span> <span class="s2">&quot;r1c1&quot;</span><span class="p">]</span>
+<span class="p">];</span>
+
+<span class="p">(</span><span class="k">new</span> <span class="nx">jugl</span><span class="p">.</span><span class="nx">Template</span><span class="p">(</span><span class="s2">&quot;template_id&quot;</span><span class="p">)).</span><span class="nx">process</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>And the processed template would look like this:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;template_id&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>1: work<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>2: play<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>3: sleep<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;p&gt;</span>
+        Statements about my dog:
+        <span class="nt">&lt;span&gt;</span>
+            Her bark is loud.
+        <span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span&gt;</span>
+            Her color is black.
+        <span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;table&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;evenrow&quot;</span><span class="nt">&gt;</span>
+                r0c0
+            <span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;evenrow&quot;</span><span class="nt">&gt;</span>
+                r0c1
+            <span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;oddrow&quot;</span><span class="nt">&gt;</span>
+                r1c0
+            <span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td</span> <span class="na">class=</span><span class="s">&quot;oddrow&quot;</span><span class="nt">&gt;</span>
+                r1c1
+            <span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/table&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
 </div>
 
 
@@ -88,7 +173,7 @@ variable_name ::= Name</pre>
     </div>
     <div class="footer">
       &copy; Copyright 2009, Tim Schaub.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.
     </div>
   </body>
 </html>

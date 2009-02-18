@@ -17,11 +17,11 @@ A single element can contain any combination of attributes, except that the cont
 
 When an element has multiple attributes, they are processed in this order:
 
-* define
-* condition
-* repeat
-* content or replace
-* attributes
-* omit-tag
+#. define
+#. condition
+#. repeat
+#. content or replace
+#. attributes
+#. omit-tag
 
     
