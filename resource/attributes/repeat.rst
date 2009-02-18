@@ -36,14 +36,14 @@ The following markup creates a template that uses several ``jugl:repeat`` statem
         </ul>
         <p>
             Statements about my dog:
-            <span jugl:repeat="trait dog" jugl:content="'Her ' + trait + ' is ' + dog[trait] '.'">
+            <span jugl:repeat="trait dog" jugl:content="'Her ' + trait + ' is ' + dog[trait] + '.'">
                 a statement here
             </span>
         </p>
         <table>
             <tr jugl:repeat="row data">
-                <td jugl:repeat="col data[repeat.row.index]"
-                    jugl:content="data[row][col]"
+                <td jugl:repeat="cell data[repeat.row.index]"
+                    jugl:content="cell"
                     jugl:attributes="class repeat.row.odd ? 'oddrow' : 'evenrow'">
                     cell contents get written here
                 </td>
@@ -59,8 +59,8 @@ The above template could be processed with the following code:
     var dog = {bark: "loud", color: "black"};
     
     var data = [
-        ["r1c1", "r1c2"],
-        ["r2c1", "r2c2"]
+        ["r0c0", "r0c1"],
+        ["r1c0", "r1c1"]
     ];
     
     (new jugl.Template("template_id")).process();
@@ -87,19 +87,19 @@ And the processed template would look like this:
         </p>
         <table>
             <tr>
-                <td class="oddrow">
-                    r1c1
+                <td class="evenrow">
+                    r0c0
                 </td>
-                <td class="oddrow">
-                    r1c2
+                <td class="evenrow">
+                    r0c1
                 </td>
             </tr>
             <tr>
-                <td class="evenrow">
-                    r2c1
+                <td class="oddrow">
+                    r1c0
                 </td>
-                <td class="evenrow">
-                    r2c2
+                <td class="oddrow">
+                    r1c1
                 </td>
             </tr>
         </table>
