@@ -8,7 +8,7 @@ Getting the code
 ----------------
 
 The source can currently be checked out with svn.
-svn co http://svn.tschaub.net/jugl/trunk
+svn co http://svn.libjs.net/jugl/trunk
 
 
 Using Jugl
