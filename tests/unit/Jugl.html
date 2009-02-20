@@ -6,17 +6,16 @@
     function test_jugl(t) {
         t.plan(2);
         
-        var uri = "http://jugl.tschaub.net/trunk/lib/jugl.js";
         var prefix = "jugl";
         // check that jugl is "exported"
         t.eq(
-            typeof window[uri], "object",
+            typeof window[prefix], "object",
             "correct namespace for jugl"
         );
 
         // "import" jugl to custom namespace
         var MyNS = {};
-        MyNS.Custom = window[uri];
+        MyNS.Custom = window[prefix];
 
         // check default prefix
         t.eq(
