@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml"
-     xmlns:jugl="http://namespace.jugl.org/"
+     xmlns:jugl="http://libjs.net/jugl/#namespace"
      style="margin: 0 auto; width: 50%">
     <h3 jugl:content="greeting + ', from ' + name">
         Insert a nice greeting here
