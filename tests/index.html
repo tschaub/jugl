@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>Jugl Tests</title>
+	<script src="syntax/scripts/shCore.js"></script>
+	<script src="syntax/scripts/shBrushJScript.js"></script>
+	<script src="syntax/scripts/shBrushXml.js"></script>
+	<script src="syntax/scripts/shBrushPlain.js"></script>
+        <script src="fdoc/lib/fdoc.js"></script>
+        <script src="../build/jugl.js"></script>
+        <script>
+            SyntaxHighlighter.all();
+        </script>
+	<link type="text/css" rel="stylesheet" href="syntax/styles/shCore.css"/>
+	<link type="text/css" rel="stylesheet" href="syntax/styles/shThemeDefault.css"/>
+        <style>
+            .fdoc-hide {
+                display: none;
+            }
+            .bar .toolbar {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+
+        <p>Given the following template:</p>
+        <div class="fdoc-hide" id="template-1">
+            <p jugl:content="greeting">Your greeting here.</p>
+        </div>
+        <script>
+            fdoc({el: document.getElementById("template-1")});
+        </script>
+
+        <p>The following code produces the output below:</p>
+        <div class="fdoc-hide" id="exp-1">
+            <p>Hello World!</p>
+        </div>
+        <script id="fdoc-test-1">
+            fdoc({
+                fn: function() {
+                    var template = new jugl.Template("template-1");
+                    template.process({
+                        context: {
+                            greeting: "Hello World!"
+                        }
+                    });
+                    return template.node;
+                },
+                exp: fdoc.el("exp-1", "template-1")
+            });
+        </script>
+        
+        
+    </body>
+</html>
