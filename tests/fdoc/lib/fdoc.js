@@ -1,8 +1,9 @@
 var fdoc = function(config) {
     if(config.fn) {
-        fdoc.docFn(config);
+        var last = fdoc.docFn(config);
         if(config.exp) {
-            fdoc.docTest(config);
+            config.after = last;
+            fdoc.addTest(config);
         }
     } else if(config.el) {
         fdoc.docEl(config);
@@ -12,7 +13,36 @@ var fdoc = function(config) {
 fdoc.tests = [];
 
 fdoc.addTest = function(config) {
+    if(!config.after) {
+        config.after = fdoc.getScript();
+    }
     fdoc.tests.push(config);
+};
+
+fdoc.getScript = function() {
+    var scripts = document.getElementsByTagName("script");
+    return scripts[scripts.length-1];
+};
+
+fdoc.docTests = function() {
+    for(var i=0, len=fdoc.tests.length; i<len; ++i) {
+        fdoc.docTest(fdoc.tests[i]);
+    }
+};
+
+fdoc.docTest = function(config) {
+    var test = fdoc.runTest(config);
+    var results = fdoc.equals(test);
+    if(results.pass) {
+        // do appropriate type check
+        fdoc.docEl({el: test.got, after: config.after});
+    } else {
+        var last = fdoc.docStr({str: "got:", after: config.after});
+        last = fdoc.docEl({el: test.got, after: last});
+        last = fdoc.docStr({str: "expected:", after: last});
+        last = fdoc.docEl({el: test.exp, after: last});
+        fdoc.docStr({str: results.msg, after: last});
+    }
 };
 
 fdoc.runTest = function(config) {
@@ -22,20 +52,6 @@ fdoc.runTest = function(config) {
     return {got: got, exp: exp};
 };
 
-fdoc.docTest = function(config) {
-    var test = fdoc.runTest(config);
-    var results = fdoc.equals(test);
-    if(results.pass) {
-        // do appropriate type check
-        fdoc.docEl({el: test.got});
-    } else {
-        fdoc.docStr({str: results.msg});
-        fdoc.docStr({str: "got:"});
-        fdoc.docEl({el: test.got});
-        fdoc.docStr({str: "expected:"});
-        fdoc.docEl({el: test.exp});
-    }
-};
 
 fdoc.equals = function(results) {
     // check for type
@@ -46,12 +62,16 @@ fdoc.docEl = function(config) {
     var el = config.el;
     var wrapper = document.createElement("div");
     wrapper.appendChild(fdoc.el.stripClass(el.cloneNode(true)));
-    fdoc.doc({str: "        " + wrapper.innerHTML, type: "html"});
+    return fdoc.doc({
+        str: "        " + wrapper.innerHTML,
+        type: "html",
+        after: config.after || el
+    });
 };
 
 fdoc.docStr = function(config) {
     config.type = "plain";
-    fdoc.doc(config);
+    return fdoc.doc(config);
 };
 
 fdoc.docFn = function(config) {
@@ -61,21 +81,24 @@ fdoc.docFn = function(config) {
         .replace(/^\s*function.*?{\t*(.*)$/i, "$1")
         .replace(/(.*?)\s*}\s*$/, "$1");
     var match = funcStr.match(/^(.*?)\s*return\s*(.*);?\s*$/i);
-    var bodyStr = match[1];
-    var retStr = match[2];
+    var bodyStr = match && match[1] || funcStr;
+    var retStr = match && match[2];
     if(retStr) {
         bodyStr += "\t    " + retStr;
     }
-    fdoc.doc({str: bodyStr.replace(/\t/g, "\n"), type: "js"});
+    return fdoc.doc({
+        str: bodyStr.replace(/\t/g, "\n"),
+        type: "js",
+        after: config.after
+    });
 };
 
 fdoc.doc = function(config) {
     var pre = document.createElement("pre");
-    pre.className = "brush: " + config.type + "; gutter: false;";
+    pre.className = "brush: " + config.type + "; gutter: false; font-size: 75%;";
     pre.appendChild(document.createTextNode(config.str));
-    var scripts = document.getElementsByTagName("script");
-    var parent = scripts[scripts.length-1].parentNode;
-    parent.appendChild(pre);
+    fdoc.el.insertAfter(pre, config.after || fdoc.getScript());
+    return pre;
 };
 
 fdoc.el = function(el, id) {
@@ -89,6 +112,15 @@ fdoc.el = function(el, id) {
     return el;
 };
 
+fdoc.el.insertAfter = function(node, ref) {
+    var sib = ref.nextSibling;
+    if(sib) {
+        ref.parentNode.insertBefore(node, sib);
+    } else {
+        ref.parentNode.appendChild(node);
+    }
+};
+
 fdoc.el.stripId = function(el) {
     el.removeAttribute("id");
     return el;
@@ -100,7 +132,7 @@ fdoc.el.stripClass = function(el) {
         var name;
         for(var i=0, len=names.length; i<len; ++i) {
             name = names[i];
-            if(name.indexOf("fdoc-") !== 0) {
+            if(name.indexOf("fdoc") !== 0) {
                 remaining.push(name);
             }
         }
@@ -228,8 +260,14 @@ fdoc.el.assertElementNodesEqual = function(got, expected, options) {
     
     // for text nodes compare value
     if(got.nodeType == 3) {
+        var gotVal = got.nodeValue;
+        var expVal = expected.nodeValue;
+        if(!options || !options.includeWhiteSpace) {
+            gotVal = gotVal.replace(/^\s*(.*?)\s*$/, "$1");
+            expVal = expVal.replace(/^\s*(.*?)\s*$/, "$1");
+        }
         fdoc.el.assertEqual(
-            got.nodeValue, expected.nodeValue, "Node value mismatch"
+            gotVal, expVal, "Node value mismatch"
         );
     }
     // for element type nodes compare namespace, attributes, and children
@@ -431,4 +469,30 @@ fdoc.el.eq = function(got, expected, msg, options) {
     }
     return result;
 };
-    
+
+fdoc.all = function() {
+    // doc all elements with "fdoc" class name
+    var els = getElementsByClassName("fdoc");
+    for(var i=0, len=els.length; i<len; ++i) {
+        fdoc.docEl({el: els[i]});
+    }
+    // doc all tests
+    fdoc.docTests();
+    // highlight all results
+    SyntaxHighlighter.highlight();
+};
+
+
+// unhack this
+(function() {
+    var old = window.onload;
+    if(typeof old === "function") {
+        window.onload = function() {
+            old();
+            fdoc.all();
+        }
+    } else {
+        window.onload = fdoc.all;
+    }
+})();
+//SyntaxHighlighter.all();
