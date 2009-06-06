@@ -1,5 +1,10 @@
+=======
 Jugl.js
+=======
+
 JavaScript Template Library
+===========================
+
 Copyright (c) 2007 Tim Schaub
 
 Released under the MIT license.  Please see the license.txt for full detail.
