@@ -27,10 +27,10 @@ clean:
 	-rm -rf .build/*
 
 html:
-	mkdir -p ../doc .build/doctrees
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) ../doc
+	mkdir -p ../jugldoc .build/doctrees
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) ../jugldoc
 	@echo
-	@echo "Build finished. The HTML pages are in ../doc"
+	@echo "Build finished. The HTML pages are in ../jugldoc"
 
 pickle:
 	mkdir -p .build/pickle .build/doctrees
