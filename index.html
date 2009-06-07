@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Jugl Template Library &mdash; Jugl v0.9 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.9',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Jugl v0.9 documentation" href="" />
+    <link rel="next" title="Attributes" href="attributes.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="attributes.html" title="Attributes"
+             accesskey="N">next</a></li>
+        <li><a href="">Jugl v0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="jugl-template-library">
+<h1>Jugl Template Library<a class="headerlink" href="#jugl-template-library" title="Permalink to this headline">¶</a></h1>
+<p>Build documents dynamically with simple HTML or XML tags.</p>
+<div class="section" id="the-basics">
+<h2>The Basics<a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h2>
+<p>Jugl is a JavaScript library that can be used to process HTML or XML templates and build documents based on your JavaScript environment.  Jugl supports a template language that allows dynamic creation of documents.  If you know TAL, you might find it most helpful to jump to the attribute examples.  If you have no idea what TAL is, keep reading.</p>
+<p>The markup for a Jugl template looks something like this:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">&quot;template_id&quot;</span> <span class="na">jugl:content=</span><span class="s">&quot;greeting&quot;</span><span class="nt">&gt;</span>
+    This content will be substituted with the value of the &quot;greeting&quot; variable.
+<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+</div>
+<p>To process the template, you might run something like the following code:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">greeting</span> <span class="o">=</span> <span class="s2">&quot;Hello World!&quot;</span><span class="o">;</span>
+<span class="kd">var</span> <span class="nx">template</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">jugl</span><span class="p">.</span><span class="nx">Template</span><span class="p">(</span><span class="s2">&quot;template_id&quot;</span><span class="p">);</span>
+<span class="nx">template</span><span class="p">.</span><span class="nx">process</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>The first line sets up your custom &#8220;Hello World!&#8221; greeting.  The second line creates a new template out of the markup identified by <tt class="docutils literal"><span class="pre">template_id</span></tt>.  The third line processes the template in place (all Jugl attributes are processed and the original markup is modified).</p>
+<p>After processing the template, the markup will look something like this:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">&quot;template_id&quot;</span><span class="nt">&gt;</span>Hello World!<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">By default, a template is processed with the context of the global scope.  This generally means that all properties of the <tt class="docutils literal"><span class="pre">window</span></tt> object are available in all Jugl expressions.  The <tt class="docutils literal"><span class="pre">process</span></tt> method takes additional arguments that let you provide (among other things) a custom context.</p>
+</div>
+<p>This example uses the <tt class="docutils literal"><span class="pre">jugl:content</span></tt> attribute.  On its own, it doesn&#8217;t seem to provide anything that useful.  The utility of Jugl becomes apparent when you start creating more complex templates using additional attributes.  In this case, the markup for the template consists of a single tag (the <tt class="docutils literal"><span class="pre">&lt;p&gt;</span></tt> element).  The value of the <tt class="docutils literal"><span class="pre">jugl:content</span></tt> attribute is a simple variable.  In general, the values of Jugl attributes in template markup can be any JavaScript expression.  Some Jugl attributes define a specific syntax for the attribute values.  The examples given on the various attribute documentation pages will help in understanding how attribute values should be structured.</p>
+</div>
+<div class="section" id="more">
+<h2>More<a class="headerlink" href="#more" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the reading below, some users might find it helpful to read up on <a class="reference external" href="http://wiki.zope.org/ZPT/AttributeLanguage">attribute languages</a>.  Jugl is more or less an implementation of <a class="reference external" href="http://wiki.zope.org/ZPT/TALSpecification14">TAL</a> for the browser.</p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="attributes.html">Attributes</a><ul>
+<li class="toctree-l2"><a class="reference external" href="attributes/content.html">jugl:content</a></li>
+<li class="toctree-l2"><a class="reference external" href="attributes/replace.html">jugl:replace</a></li>
+<li class="toctree-l2"><a class="reference external" href="attributes/repeat.html">jugl:repeat</a></li>
+<li class="toctree-l2"><a class="reference external" href="attributes/define.html">jugl:define</a></li>
+<li class="toctree-l2"><a class="reference external" href="attributes/attributes.html">jugl:attributes</a></li>
+<li class="toctree-l2"><a class="reference external" href="attributes/condition.html">jugl:condition</a></li>
+<li class="toctree-l2"><a class="reference external" href="attributes/omit-tag.html">jugl:omit-tag</a></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Jugl Template Library</a><ul>
+<li><a class="reference external" href="#the-basics">The Basics</a></li>
+<li><a class="reference external" href="#more">More</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            <h4>Next topic</h4>
+            <p class="topless"><a href="attributes.html"
+                                  title="next chapter">Attributes</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="attributes.html" title="Attributes"
+             >next</a></li>
+        <li><a href="">Jugl v0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, Tim Schaub.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.1.
+    </div>
+  </body>
+</html>

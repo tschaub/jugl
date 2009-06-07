@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>jugl:replace &mdash; Jugl v0.9 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Jugl v0.9 documentation" href="../index.html" />
+    <link rel="up" title="Attributes" href="../attributes.html" />
+    <link rel="next" title="jugl:repeat" href="repeat.html" />
+    <link rel="prev" title="jugl:content" href="content.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="repeat.html" title="jugl:repeat"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="content.html" title="jugl:content"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Jugl v0.9 documentation</a> &raquo;</li>
+          <li><a href="../attributes.html" accesskey="U">Attributes</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="jugl-replace">
+<span id="id1"></span><h1>jugl:replace<a class="headerlink" href="#jugl-replace" title="Permalink to this headline">¶</a></h1>
+<p>The <tt class="docutils literal"><span class="pre">jugl:replace</span></tt> attribute is used to replace an entire element with the result of some expression.</p>
+<p>Syntax:</p>
+<div class="highlight-python"><pre>argument ::= ['structure'] expression</pre>
+</div>
+<p>Take a template with the following markup.</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">&quot;template_id&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p</span> <span class="na">jugl:replace=</span><span class="s">&quot;text&quot;</span><span class="nt">&gt;</span>This entire paragraph will be replaced.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+</div>
+<p>Process the template with the code below.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="s2">&quot;Some text.  (And some other symbols like &lt; and &gt;.)&quot;</span><span class="o">;</span>
+<span class="kd">var</span> <span class="nx">template</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">jugl</span><span class="p">.</span><span class="nx">Template</span><span class="p">(</span><span class="s2">&quot;template_id&quot;</span><span class="p">);</span>
+<span class="nx">template</span><span class="p">.</span><span class="nx">process</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>The markup will now look like:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">&quot;template_id&quot;</span><span class="nt">&gt;</span>
+    Some text.  (And some other symbols like <span class="ni">&amp;lt;</span> and <span class="ni">&amp;gt;</span>.)
+<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+</div>
+<p>If the result of the JavaScript expression is a string with structured markup (XML or HTML), preface the expression with the <tt class="docutils literal"><span class="pre">structure</span></tt> keyword.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="content.html"
+                                  title="previous chapter">jugl:content</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="repeat.html"
+                                  title="next chapter">jugl:repeat</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="repeat.html" title="jugl:repeat"
+             >next</a></li>
+        <li class="right" >
+          <a href="content.html" title="jugl:content"
+             >previous</a> |</li>
+        <li><a href="../index.html">Jugl v0.9 documentation</a> &raquo;</li>
+          <li><a href="../attributes.html" >Attributes</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, Tim Schaub.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.1.
+    </div>
+  </body>
+</html>
