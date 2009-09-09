@@ -130,7 +130,7 @@ extend(Template.prototype, {
         config = extend({context: null, clone: false, string: false}, config);
         this.usingNS = this.node.getAttributeNodeNS && pub.namespaceURI;
         element = new Element(this, this.node);
-        if(config.clone) {
+        if(config.clone || config.string) {
             element = element.clone();
         }
         if(config.context) {
