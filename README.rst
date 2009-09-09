@@ -24,4 +24,4 @@ Find some basic documentation on the Jugl docs_.
 
 See the examples in the examples directory for usage.
 
-.. docs: http://doc.libjs.net/jugl/trunk/
+.. _docs: http://doc.libjs.net/jugl/trunk/
