@@ -6,22 +6,19 @@ JavaScript Template Library
 
 Copyright (c) 2007-2010 Tim Schaub
 
-Released under the MIT license. Please see the [license.txt](license.txt) for
-full detail.
+Released under the MIT license. Please see the license.txt for full detail.
 
 
 Getting the code
 ----------------
 
-The source can currently be checked out with git:
-
-    git clone git://github.com/tschaub/jugl.git
+Download an archive of the Jugl library from the [Jugl downloads](http://github.com/tschaub/jugl/downloads) page. 
 
 
 Using Jugl
 ----------
 
-Find some basic documentation on the Jugl [docs](doc/index.md).
+Find some basic documentation on the Jugl doc directory.
 
 See the examples in the examples directory for usage.
 
