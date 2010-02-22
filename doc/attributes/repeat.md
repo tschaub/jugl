@@ -1,32 +1,41 @@
-.. _jugl-repeat:
-
 jugl:repeat
 ===========
 
-The ``jugl:repeat`` attribute is used to duplicate an element for every item in a sequence.
+The `jugl:repeat` attribute is used to duplicate an element for every item in a
+sequence.
 
-Syntax::
+Syntax:
 
     argument ::= variable_name expression
     variable_name ::= Name
 
-Given an array or other object to use as a sequence, ``jugl:repeat`` statements will replicate an element (and all child elements) for each item in the sequence.  When an array is used as the expression, the ``variable_name`` will be set to the value of each item in the array (not to the array indices).  When an object is used as the expression, the ``variable_name`` will be set to each property name (or key) in the object (and not the property value).
+Given an array or other object to use as a sequence, `jugl:repeat` statements
+will replicate an element (and all child elements) for each item in the
+sequence. When an array is used as the expression, the `variable_name` will be
+set to the value of each item in the array (not to the array indices). When an
+object is used as the expression, the `variable_name` will be set to each
+property name (or key) in the object (and not the property value).
 
-In addition to having access to the ``variable_name``, the element containing the attribute and all child elements will have access to a special repeat variable.  The repeat variable is an object available to the element with the ``jugl:repeat`` attribute and all child elements.  This object is given a property for each ``variable_name`` - in the case of nested repeat statements, the object will have multiple properties.  These named properties are themselves objects, each with special properties that provide access to information about the iteration.
+In addition to having access to the `variable_name`, the element containing the
+attribute and all child elements will have access to a special repeat variable.
+The repeat variable is an object available to the element with the `jugl:repeat`
+attribute and all child elements. This object is given a property for each
+`variable_name` - in the case of nested repeat statements, the object will have
+multiple properties. These named properties are themselves objects, each with
+special properties that provide access to information about the iteration.
 
 Properties accessible within repeat statements:
 
-* index - repetition number, starting from zero.
-* number - repetition number, starting from one.
-* even - ``true`` for even-indexed repetitions (0, 2, 4, ...).
-* odd - ``true`` for odd-indexed repetitions (1, 3, 5, ...).
-* start - ``true`` for the starting repetition (index 0).
-* end - ``true`` for the ending, or final, repetition.
-* length - length of the sequence, which will be the total number of repetitions.
+ * index - repetition number, starting from zero.
+ * number - repetition number, starting from one.
+ * even - `true` for even-indexed repetitions (0, 2, 4, ...).
+ * odd - `true` for odd-indexed repetitions (1, 3, 5, ...).
+ * start - `true` for the starting repetition (index 0).
+ * end - `true` for the ending, or final, repetition.
+ * length - length of the sequence, which will be the total number of repetitions.
 
-The following markup creates a template that uses several ``jugl:repeat`` statements:
-
-.. code-block:: html
+The following markup creates a template that uses several `jugl:repeat`
+statements:
 
     <div id="template_id">
         <ul>
@@ -53,8 +62,6 @@ The following markup creates a template that uses several ``jugl:repeat`` statem
 
 The above template could be processed with the following code:
 
-.. code-block:: javascript
-
     var tasks = ["work", "play", "sleep"];
     var dog = {bark: "loud", color: "black"};
     
@@ -67,8 +74,6 @@ The above template could be processed with the following code:
 
 
 And the processed template would look like this:
-
-.. code-block:: html
 
     <div id="template_id">
         <ul>

@@ -1,27 +1,25 @@
-.. _jugl-define:
-
 jugl:define
 ===========
 
-The ``jugl:define`` attribute is used to define a variable that will be available in any expressions of all child elements.
+The `jugl:define` attribute is used to define a variable that will be available
+in any expressions of all child elements.
 
-Syntax::
+Syntax:
 
     argument ::= define_statement [';' define_statement]* 
     define_statement ::= variable_name expression
     variable_name ::= Name
 
-.. note::
+Note: To include a semicolon (;) in an expression, it must be escaped by
+doubling it (;;).
 
-    To include a semicolon (;) in an expression, it must be escaped by doubling it (;;).
-    
-When you define a variable on an element, it can be accessed in other statements on that element and any child elements it contains.  Variables defined locally will hide any global variables with the same name.
+When you define a variable on an element, it can be accessed in other statements
+on that element and any child elements it contains. Variables defined locally
+will hide any global variables with the same name.
 
 The value of the define variable will be the result of the expression.
 
 The markup below shows how define variables can be accessed in a template.
-
-.. code-block:: html
 
     <div id="template_id" jugl:define="date Date(); url window.location.href">
         <p>
@@ -32,13 +30,9 @@ The markup below shows how define variables can be accessed in a template.
 
 Processed with the following code:
 
-.. code-block:: javascript
-
     (new jugl.Template("template_id")).process();
 
 The markup becomes something like:
-
-.. code-block:: html
 
     <div id="template_id">
         <p>
@@ -46,5 +40,3 @@ The markup becomes something like:
             looking at http://doc.libjs.net/jugl/trunk/.
         </p>
     </div>
-
-

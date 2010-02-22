@@ -1,4 +1,3 @@
-=======
 Jugl.js
 =======
 
@@ -12,7 +11,7 @@ Released under the MIT license.  Please see the license.txt for full detail.
 Getting the code
 ----------------
 
-The source can currently be checked out with git::
+The source can currently be checked out with git:
 
     git clone git://github.com/tschaub/jugl.git
 
@@ -20,8 +19,6 @@ The source can currently be checked out with git::
 Using Jugl
 ----------
 
-Find some basic documentation on the Jugl docs_.
+Find some basic documentation on the Jugl docs.
 
 See the examples in the examples directory for usage.
-
-.. _docs: http://doc.libjs.net/jugl/trunk/
