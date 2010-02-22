@@ -144,8 +144,15 @@ extend(Attribute.prototype, {
      * {Object} The result of the expression evaluated.
      */
     evalInScope: function(str) {
-        var fn = 'eval'; // to make yui-compressor more agressive
-        return window[fn]("with(this.element.scope){" + str + "}");
+        var scope = this.element.scope;
+        var args = [];
+        var vals = [];
+        for (key in scope) {
+            args.push(key);
+            vals.push(scope[key]);
+        }
+        var evaluator = new Function(args.join(","), "return " + str);
+        return evaluator.apply({}, vals);
     },
 
     /**
