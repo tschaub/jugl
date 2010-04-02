@@ -14,6 +14,10 @@
 
             // this part does the actual template processing
             window.onload = function() {
+
+                // the doc we're loading asynchronously uses the following URI for jugl
+                jugl.namespaceURI = "http://example.com/#jugl";
+
                 var template = new jugl.Template({
                     url: "structure.xml",
                     callback: function(template) {
