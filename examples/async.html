@@ -42,6 +42,10 @@
             }
             
             window.onload = function() {
+
+                // the doc we're loading asynchronously uses the following URI for jugl
+                jugl.namespaceURI = "http://example.com/#jugl";
+                
                 // create a template, load from url, process and append to body
                 var template = new jugl.Template({
                     url: "template.xml",
@@ -49,6 +53,7 @@
                         template.process({parent: document.body});
                     }
                 });
+
             };
             
 

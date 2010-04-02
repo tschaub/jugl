@@ -22,8 +22,7 @@ var pub = {
      *     statements.  Default is null.  If null, the "jugl" prefix will be
      *     relied upon.  To use a different prefix (or if you prefer to specify
      *     the namespace uri, set jugl.namespaceURI before processing your
-     *     template. The suggested namespace URI is
-     *     http://libjs.net/projects/jugl/#namespace.
+     *     template.
      */
     namespaceURI: null,
 
