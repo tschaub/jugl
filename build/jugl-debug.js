@@ -355,7 +355,7 @@ extend(Element.prototype, {
      */
     removeChild: function(element) {
         this.node.removeChild(element.node);
-        return node;
+        return element;
     },
     
     /**
@@ -880,7 +880,7 @@ extend(Attribute.prototype, {
         var scope = this.element.scope;
         var args = [];
         var vals = [];
-        for (key in scope) {
+        for (var key in scope) {
             args.push(key);
             vals.push(scope[key]);
         }
