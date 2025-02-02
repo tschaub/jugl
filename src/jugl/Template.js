@@ -69,14 +69,7 @@ extend(Template.prototype, {
      * {Boolean} Use DOM manipulations with namespaces 
      */
     usingNS: false,
-    
-    /**
-     * Property: xmldom
-     * {ActiveX:XMLDOM} For browsers that need ActiveX to parse XML, this will
-     *     be a XMLDOM object.
-     */
-    xmldom: window.ActiveXObject ? new ActiveXObject("Microsoft.XMLDOM") : null,
-    
+
     /**
      * Property: trimSpace
      * {RegExp} Compiled regular expression for use by the template.
@@ -142,11 +135,7 @@ extend(Template.prototype, {
             if(element.node.innerHTML) {
                 data = element.node.innerHTML;
             } else {
-                if(this.xmldom) {
-                    data = element.node.xml;
-                } else {
-                    data = (new XMLSerializer).serializeToString(element.node);
-                }
+                data = (new XMLSerializer).serializeToString(element.node);
             }
         } else {
             data = element.node;

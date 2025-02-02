@@ -152,14 +152,7 @@ var appendChild = function(parent, child) {
  *
  */
 var loadUrl = function(url, callback, scope) {
-    var request;
-    if(typeof XMLHttpRequest !== "undefined") {
-        request = new XMLHttpRequest();
-    } else if (typeof ActiveXObject !== "undefined") {
-        request = new ActiveXObject("Microsoft.XMLHTTP");
-    } else {
-        throw new Error("XMLHttpRequest not supported");
-    }
+    var request = new XMLHttpRequest();
     request.open("GET", url);
     request.onreadystatechange = function() {
         if(request.readyState === 4) {

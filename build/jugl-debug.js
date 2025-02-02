@@ -166,14 +166,7 @@ var appendChild = function(parent, child) {
  *
  */
 var loadUrl = function(url, callback, scope) {
-    var request;
-    if(typeof XMLHttpRequest !== "undefined") {
-        request = new XMLHttpRequest();
-    } else if (typeof ActiveXObject !== "undefined") {
-        request = new ActiveXObject("Microsoft.XMLHTTP");
-    } else {
-        throw new Error("XMLHttpRequest not supported");
-    }
+    var request = new XMLHttpRequest();
     request.open("GET", url);
     request.onreadystatechange = function() {
         if(request.readyState === 4) {
@@ -570,14 +563,7 @@ extend(Template.prototype, {
      * {Boolean} Use DOM manipulations with namespaces 
      */
     usingNS: false,
-    
-    /**
-     * Property: xmldom
-     * {ActiveX:XMLDOM} For browsers that need ActiveX to parse XML, this will
-     *     be a XMLDOM object.
-     */
-    xmldom: window.ActiveXObject ? new ActiveXObject("Microsoft.XMLDOM") : null,
-    
+
     /**
      * Property: trimSpace
      * {RegExp} Compiled regular expression for use by the template.
@@ -643,11 +629,7 @@ extend(Template.prototype, {
             if(element.node.innerHTML) {
                 data = element.node.innerHTML;
             } else {
-                if(this.xmldom) {
-                    data = element.node.xml;
-                } else {
-                    data = (new XMLSerializer).serializeToString(element.node);
-                }
+                data = (new XMLSerializer).serializeToString(element.node);
             }
         } else {
             data = element.node;
@@ -1010,28 +992,10 @@ extend(Attribute.prototype, {
                     // for xml templates, exception thrown for invalid xml
                     var wrapper = document.createElement('div');
                     wrapper.innerHTML = str;
-                    if(this.element.node.xml && this.template.xmldom) {
-                        while(this.element.node.firstChild) {
-                            this.element.node.removeChild(
-                                this.element.node.firstChild
-                            );
-                        }
-                        this.template.xmldom.loadXML(wrapper.outerHTML);
-                        var children = this.template.xmldom.firstChild.childNodes;
-                        for(var i=0, num=children.length; i<num; ++i) {
-                            this.element.node.appendChild(children[i]);
-                        }
-                    } else {
-                        this.element.node.innerHTML = wrapper.innerHTML;
-                    }
+                    this.element.node.innerHTML = wrapper.innerHTML;
                 }
             } else {
-                var text;
-                if(this.element.node.xml && this.template.xmldom) {
-                    text = this.template.xmldom.createTextNode(str);
-                } else {
-                    text = document.createTextNode(str);
-                }
+                var text = document.createTextNode(str);
                 var child = new Element(this.template, text);
                 this.element.removeChildNodes();
                 this.element.appendChild(child);
@@ -1053,11 +1017,6 @@ extend(Attribute.prototype, {
             if(pair[0] === 'structure') {
                 var wrapper = document.createElement('div');
                 wrapper.innerHTML = str;
-                if(this.element.node.xml && this.template.xmldom) {
-                    // The loadXML method does better if cast to HTML first
-                    this.template.xmldom.loadXML(wrapper.outerHTML);
-                    wrapper = this.template.xmldom.firstChild;
-                }
                 while(wrapper.firstChild) {
                     var child = wrapper.removeChild(wrapper.firstChild);
                     if(this.element.node.ownerDocument &&
@@ -1073,12 +1032,7 @@ extend(Attribute.prototype, {
                     );
                 }
             } else {
-                var text;
-                if(this.element.node.xml && this.template.xmldom) {
-                    text = this.template.xmldom.createTextNode(str);
-                } else {
-                    text = document.createTextNode(str);
-                }
+                var text = document.createTextNode(str);
                 var replacement = new Element(this.template, text);
                 this.element.insertBefore(replacement);
             }
