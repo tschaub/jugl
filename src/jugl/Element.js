@@ -166,7 +166,7 @@ extend(Element.prototype, {
      */
     removeChild: function(element) {
         this.node.removeChild(element.node);
-        return node;
+        return element;
     },
     
     /**

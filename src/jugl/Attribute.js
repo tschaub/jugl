@@ -146,7 +146,7 @@ extend(Attribute.prototype, {
         var scope = this.element.scope;
         var args = [];
         var vals = [];
-        for (key in scope) {
+        for (var key in scope) {
             args.push(key);
             vals.push(scope[key]);
         }
@@ -276,28 +276,10 @@ extend(Attribute.prototype, {
                     // for xml templates, exception thrown for invalid xml
                     var wrapper = document.createElement('div');
                     wrapper.innerHTML = str;
-                    if(this.element.node.xml && this.template.xmldom) {
-                        while(this.element.node.firstChild) {
-                            this.element.node.removeChild(
-                                this.element.node.firstChild
-                            );
-                        }
-                        this.template.xmldom.loadXML(wrapper.outerHTML);
-                        var children = this.template.xmldom.firstChild.childNodes;
-                        for(var i=0, num=children.length; i<num; ++i) {
-                            this.element.node.appendChild(children[i]);
-                        }
-                    } else {
-                        this.element.node.innerHTML = wrapper.innerHTML;
-                    }
+                    this.element.node.innerHTML = wrapper.innerHTML;
                 }
             } else {
-                var text;
-                if(this.element.node.xml && this.template.xmldom) {
-                    text = this.template.xmldom.createTextNode(str);
-                } else {
-                    text = document.createTextNode(str);
-                }
+                var text = document.createTextNode(str);
                 var child = new Element(this.template, text);
                 this.element.removeChildNodes();
                 this.element.appendChild(child);
@@ -319,11 +301,6 @@ extend(Attribute.prototype, {
             if(pair[0] === 'structure') {
                 var wrapper = document.createElement('div');
                 wrapper.innerHTML = str;
-                if(this.element.node.xml && this.template.xmldom) {
-                    // The loadXML method does better if cast to HTML first
-                    this.template.xmldom.loadXML(wrapper.outerHTML);
-                    wrapper = this.template.xmldom.firstChild;
-                }
                 while(wrapper.firstChild) {
                     var child = wrapper.removeChild(wrapper.firstChild);
                     if(this.element.node.ownerDocument &&
@@ -339,12 +316,7 @@ extend(Attribute.prototype, {
                     );
                 }
             } else {
-                var text;
-                if(this.element.node.xml && this.template.xmldom) {
-                    text = this.template.xmldom.createTextNode(str);
-                } else {
-                    text = document.createTextNode(str);
-                }
+                var text = document.createTextNode(str);
                 var replacement = new Element(this.template, text);
                 this.element.insertBefore(replacement);
             }
